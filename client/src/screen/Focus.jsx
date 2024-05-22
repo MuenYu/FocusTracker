@@ -1,17 +1,19 @@
 import React from "react";
-import { View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
 export default function Focus() {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <SafeAreaView style={styles.container}>
       <Text>Focus</Text>
-    </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

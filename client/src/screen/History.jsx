@@ -1,16 +1,19 @@
-import { View } from "react-native";
+import React from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
 export default function History() {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <SafeAreaView style={styles.container}>
       <Text>History</Text>
-    </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

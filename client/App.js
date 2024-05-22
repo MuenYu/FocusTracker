@@ -1,15 +1,15 @@
-import * as React from "react";
-import { StatusBar } from "react-native";
+import { useState } from "react";
+import { View, StatusBar } from "react-native";
 import { PaperProvider, MD3DarkTheme, MD3LightTheme } from "react-native-paper";
 import BottomNavigation from "./src/navigators/BottomNavigation";
 import ConfigContext from "./src/context/ConfigContext";
 
 export default function App() {
   const defaultConfig = {
-    isDark: false // true: dark, false: light
-  }
+    isDark: false, // true: dark, false: light
+  };
 
-  const [config, setConfig] = React.useState(defaultConfig); 
+  const [config, setConfig] = useState(defaultConfig);
 
   return (
     <ConfigContext.Provider value={{ config, setConfig }}>
