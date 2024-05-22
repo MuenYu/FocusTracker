@@ -5,19 +5,22 @@ import Focus from "../screen/Focus";
 import History from "../screen/History";
 import Statistics from "../screen/Statistics";
 import Settings from "../screen/Settings";
+import { useTheme } from "react-native-paper";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function BottomNavigation() {
+  const theme = useTheme();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Tab.Navigator initialRouteName="Focus">
         <Tab.Screen
           name="Focus"
           component={Focus}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="timer" color={color} size={26} /> // Change the icon name to your preference
+              <Icon name="timer" color={color} size={26} />
             ),
           }}
         />
@@ -26,7 +29,7 @@ export default function BottomNavigation() {
           component={History}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="history" color={color} size={26} /> // Change the icon name to your preference
+              <Icon name="history" color={color} size={26} />
             ),
           }}
         />
@@ -35,7 +38,7 @@ export default function BottomNavigation() {
           component={Statistics}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="chart-box" color={color} size={26} /> // Change the icon name to your preference
+              <Icon name="chart-box" color={color} size={26} />
             ),
           }}
         />
@@ -44,7 +47,7 @@ export default function BottomNavigation() {
           component={Settings}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="tools" color={color} size={26} /> // Change the icon name to your preference
+              <Icon name="tools" color={color} size={26} />
             ),
           }}
         />
