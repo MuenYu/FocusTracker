@@ -1,5 +1,17 @@
 export function Seconds2Time(time) {
-    const minutes = String(Math.floor(time / 60)).padStart(2, "0");
-    const seconds = String(time % 60).padStart(2, "0");
-    return `${minutes}:${seconds}`;
+  const minutes = String(Math.floor(time / 60)).padStart(2, "0");
+  const seconds = String(time % 60).padStart(2, "0");
+  return `${minutes}:${seconds}`;
+}
+
+export function Timestamp2Date(timestamp) {
+  const date = new Date(timestamp);
+
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  };
+
+  return date.toLocaleDateString("en-US", options);
 }
