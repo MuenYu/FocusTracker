@@ -22,6 +22,7 @@ export default function Timer({ task, setTask, setShowTimer }) {
         task: task,
         duration: duration,
         timestamp: Date.now(),
+        sync: false
       };
       // TODO: save the data to remote
       Alert.alert("Success", "Your record has been saved.");
