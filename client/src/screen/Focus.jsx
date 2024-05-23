@@ -1,11 +1,20 @@
-import React from "react";
+import { useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import Timer from "../components/Timer";
+import TaskInput from "../components/TaskInput";
 
 export default function Focus() {
+  const [task, setTask] = useState("");
+  const [showTimer, setShowTimer] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Focus</Text>
+      {!showTimer && (
+        <TaskInput task={task} setTask={setTask} setShowTimer={setShowTimer} />
+      )}
+      {showTimer && (
+        <Timer task={task} setTask={setTask} setShowTimer={setShowTimer} />
+      )}
     </SafeAreaView>
   );
 }
