@@ -6,7 +6,7 @@ export default function TaskInput({ task, setTask, setShowTimer }) {
     <View style={styles.container}>
       <Text style={styles.title}>Ready to keep focus?</Text>
       <TextInput
-        placeholder="I am focus on..."
+        placeholder="What to do next?"
         mode="flat"
         value={task}
         onChangeText={setTask}
@@ -17,6 +17,7 @@ export default function TaskInput({ task, setTask, setShowTimer }) {
             setShowTimer(true);
           }
         }}
+        contentStyle={styles.content}
       />
     </View>
   );
@@ -24,9 +25,9 @@ export default function TaskInput({ task, setTask, setShowTimer }) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent:'center',
-    gap: 20
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
   },
   title: {
     fontSize: 30,
@@ -35,5 +36,8 @@ const styles = StyleSheet.create({
     minWidth: "50%",
     maxWidth: "75%",
     backgroundColor: "transparent",
+  },
+  content: {
+    textAlign: "center",
   },
 });
