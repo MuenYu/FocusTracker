@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Modal,
   Portal,
@@ -7,13 +7,13 @@ import {
   List,
   useTheme,
 } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Timestamp2Date } from "../util/format";
 import AppContext from "../context/AppContext";
 
 export default function RecordItem({ item, index }) {
   const theme = useTheme();
-  const { appData, setAppData } = useContext(AppContext);
+  const { setAppData } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
   const [task, setTask] = useState(item.task);
 
@@ -33,6 +33,13 @@ export default function RecordItem({ item, index }) {
   });
 
   const onEdit = () => {
+    if (task.length === 0 || task.length > 50) {
+      Alert.alert(
+        "Wrong Input",
+        "The task name should be 1~50 characters long."
+      );
+      return;
+    }
     // TODO: sync with api
     setAppData((prev) => {
       const records = prev.records;
