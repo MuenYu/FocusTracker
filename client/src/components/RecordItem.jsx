@@ -1,15 +1,39 @@
 import React, { useContext, useState } from "react";
-import { Modal, Portal, Button, TextInput, List, SegmentedButtons } from "react-native-paper";
+import {
+  Modal,
+  Portal,
+  Button,
+  TextInput,
+  List,
+  useTheme,
+} from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { Timestamp2Date } from "../util/format";
 import AppContext from "../context/AppContext";
 
 export default function RecordItem({ item, index }) {
+  const theme = useTheme();
   const { appData, setAppData } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
   const [task, setTask] = useState(item.task);
 
-  const onSubmit = () => {
+  const styles = StyleSheet.create({
+    modalContainer: {
+      backgroundColor: theme.colors.background,
+      padding: 20,
+      margin: 20,
+      borderRadius: 10,
+      gap: 15,
+    },
+    buttonGroup: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      gap: 5,
+    },
+  });
+
+  const onEdit = () => {
+    // TODO: sync with api
     setAppData((prev) => {
       const records = prev.records;
       records[index] = {
@@ -17,8 +41,20 @@ export default function RecordItem({ item, index }) {
         task: task.trim(),
       };
       return {
-        ...appData,
+        ...prev,
         records: records,
+      };
+    });
+    setVisible(false);
+  };
+
+  const onDelete = () => {
+    // TODO: delete from server
+    setAppData((prev) => {
+      prev.records.splice(index, 1);
+      return {
+        ...prev,
+        records: prev.records,
       };
     });
     setVisible(false);
@@ -45,21 +81,16 @@ export default function RecordItem({ item, index }) {
             value={task}
             onChangeText={(text) => setTask(text)}
           />
-          <Button onPress={onSubmit} mode="contained">
-            Update
-          </Button>
+          <View style={styles.buttonGroup}>
+            <Button icon="pencil" onPress={onEdit} mode="contained">
+              Update
+            </Button>
+            <Button icon="trash-can" onPress={onDelete} mode="contained">
+              Delete
+            </Button>
+          </View>
         </Modal>
       </Portal>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    backgroundColor: "white",
-    padding: 20,
-    margin: 20,
-    borderRadius: 10,
-    gap: 15,
-  },
-});
