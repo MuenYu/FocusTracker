@@ -2,13 +2,13 @@ import { useState, useContext } from "react";
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
+  FlatList,
   RefreshControl,
 } from "react-native";
-import { Appbar, List, useTheme, Searchbar } from "react-native-paper";
-import { Timestamp2Date } from "../util/format";
+import { Appbar, useTheme, Searchbar } from "react-native-paper";
 import Empty from "../components/Empty";
 import AppContext from "../context/AppContext";
+import RecordItem from "../components/RecordItem";
 
 export default function History() {
   const theme = useTheme();
@@ -28,6 +28,8 @@ export default function History() {
     record.task.toLowerCase().includes(keyword.trim().toLowerCase())
   );
 
+  const renderItem = ({ item }) => <RecordItem item={item} />;
+
   return (
     <SafeAreaView style={styles.container}>
       <Appbar>
@@ -42,8 +44,12 @@ export default function History() {
       {showSearchBar && (
         <Searchbar mode="view" onChangeText={setKeyword} value={keyword} />
       )}
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
+      <FlatList
+        contentContainerStyle={styles.flatListContainer}
+        data={filteredRecords}
+        renderItem={({ item, index }) => (
+          <RecordItem item={item} index={index} />
+        )}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -51,22 +57,8 @@ export default function History() {
             tintColor={theme.colors.onBackground}
           />
         }
-      >
-        {filteredRecords.length > 0 ? (
-          filteredRecords.map((item, index) => (
-            <List.Item
-              title={item.task}
-              key={index}
-              description={`Duration: ${Math.floor(
-                item.duration / 60
-              )} minutes | Date: ${Timestamp2Date(item.timestamp)}`}
-              onPress={() => {}}
-            />
-          ))
-        ) : (
-          <Empty name={"focus records"} />
-        )}
-      </ScrollView>
+        ListEmptyComponent={<Empty name={"focus records"} />}
+      />
     </SafeAreaView>
   );
 }
@@ -75,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollContainer: {
+  flatListContainer: {
     flexGrow: 1,
   },
 });
