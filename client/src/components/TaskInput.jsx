@@ -17,7 +17,6 @@ export default function TaskInput({ task, setTask, setShowTimer }) {
             setShowTimer(true);
           }
         }}
-        contentStyle={styles.content}
       />
     </View>
   );
@@ -36,8 +35,5 @@ const styles = StyleSheet.create({
     minWidth: "50%",
     maxWidth: "75%",
     backgroundColor: "transparent",
-  },
-  content: {
-    textAlign: "center",
   },
 });

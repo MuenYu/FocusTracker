@@ -3,15 +3,10 @@ import { StatusBar } from "react-native";
 import { PaperProvider, MD3DarkTheme, MD3LightTheme } from "react-native-paper";
 import BottomNavigation from "./src/navigators/BottomNavigation";
 import ConfigContext from "./src/context/AppContext";
-import {
-  LoadData,
-  ResetData,
-  SaveData,
-} from "./src/services/storage";
+import { LoadData, ResetData, SaveData } from "./src/services/storage";
 
 export default function App() {
   const [appData, setAppData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   // load records at the beginning
   useEffect(() => {
@@ -30,11 +25,10 @@ export default function App() {
     }
     if (appData) {
       saveAppData(appData);
-      setLoading(false);
     }
   }, [appData]);
 
-  if (!loading)
+  if (appData)
     return (
       <ConfigContext.Provider value={{ appData, setAppData }}>
         <PaperProvider theme={appData.isDark ? MD3DarkTheme : MD3LightTheme}>
