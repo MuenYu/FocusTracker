@@ -6,7 +6,7 @@ export default function TaskInput({ task, setTask, setShowTimer }) {
     <View style={styles.container}>
       <Text style={styles.title}>Ready to keep focus?</Text>
       <TextInput
-        placeholder="What to do next?"
+        placeholder="Write down your task"
         mode="flat"
         value={task}
         onChangeText={setTask}

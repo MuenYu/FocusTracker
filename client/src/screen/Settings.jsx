@@ -2,17 +2,17 @@
 import React, { useContext } from 'react';
 import { SafeAreaView, Switch, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
-import ConfigContext from '../context/ConfigContext';
+import AppContext from '../context/AppContext';
 
 export default function Settings() {
-  const { config, setConfig } = useContext(ConfigContext);
+  const { appData, setAppData } = useContext(AppContext);
 
   return (
     <SafeAreaView style={styles.container}>
       <Text>Dark Theme</Text>
       <Switch
-        value={config.isDark}
-        onValueChange={() => setConfig({...config, isDark: !config.isDark})}
+        value={appData.isDark}
+        onValueChange={() => setAppData({...appData, isDark: !appData.isDark})}
       />
     </SafeAreaView>
   );

@@ -6,12 +6,8 @@ export function Seconds2Time(time) {
 
 export function Timestamp2Date(timestamp) {
   const date = new Date(timestamp);
-
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  };
-
-  return date.toLocaleDateString("en-US", options);
+  const day = date.getDate();
+  const month = date.getMonth()+1;
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }

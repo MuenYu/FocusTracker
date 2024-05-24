@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { Text, Button } from "react-native-paper";
 import { View, StyleSheet, Alert } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { Seconds2Time } from "../util/format";
+import AppContext from "../context/AppContext";
 
 export default function Timer({ task, setTask, setShowTimer }) {
-  const [duration, setDuration] = useState(0);
+  const { setAppData } = useContext(AppContext);
+  const [duration, setDuration] = useState(1000);
   const intervalRef = useRef(null);
 
   /**
@@ -22,9 +25,13 @@ export default function Timer({ task, setTask, setShowTimer }) {
         task: task,
         duration: duration,
         timestamp: Date.now(),
-        sync: false
+        sync: false,
       };
       // TODO: save the data to remote
+      setAppData(prevAppData => ({
+        ...prevAppData,
+        records: [record, ...prevAppData.records],
+      }));
       Alert.alert("Success", "Your record has been saved.");
     }
     setShowTimer(false);
