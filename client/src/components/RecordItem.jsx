@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Modal,
   Portal,
@@ -15,7 +15,7 @@ export default function RecordItem({ item, index }) {
   const theme = useTheme();
   const { setAppData } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
-  const [task, setTask] = useState(item.task);
+  const [task, setTask] = useState("");
 
   const styles = StyleSheet.create({
     modalContainer: {
@@ -31,6 +31,10 @@ export default function RecordItem({ item, index }) {
       gap: 5,
     },
   });
+
+  useEffect(() => {
+    setTask(item.task);
+  }, [visible]);
 
   const onEdit = () => {
     if (task.length === 0 || task.length > 50) {
