@@ -28,8 +28,6 @@ export default function History() {
     record.task.toLowerCase().includes(keyword.trim().toLowerCase())
   );
 
-  const renderItem = ({ item }) => <RecordItem item={item} />;
-
   return (
     <SafeAreaView style={styles.container}>
       <Appbar>
