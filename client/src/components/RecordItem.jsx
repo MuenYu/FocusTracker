@@ -1,26 +1,27 @@
 import React, { useContext, useState } from "react";
-import { Modal, Portal, Button, TextInput } from "react-native-paper";
+import { Modal, Portal, Button, TextInput, List, SegmentedButtons } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { Timestamp2Date } from "../util/format";
-import { List } from "react-native-paper";
 import AppContext from "../context/AppContext";
 
 export default function RecordItem({ item, index }) {
   const { appData, setAppData } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
+  const [task, setTask] = useState(item.task);
 
-  const updateRecord = (text) => {
+  const onSubmit = () => {
     setAppData((prev) => {
       const records = prev.records;
       records[index] = {
         ...records[index],
-        task: text,
+        task: task.trim(),
       };
       return {
         ...appData,
         records: records,
       };
     });
+    setVisible(false);
   };
 
   return (
@@ -41,11 +42,11 @@ export default function RecordItem({ item, index }) {
           <TextInput
             mode="outlined"
             label="Task name"
-            value={item.task}
-            onChangeText={updateRecord}
+            value={task}
+            onChangeText={(text) => setTask(text)}
           />
-          <Button onPress={() => setVisible(false)} mode="contained">
-            Submit
+          <Button onPress={onSubmit} mode="contained">
+            Update
           </Button>
         </Modal>
       </Portal>
