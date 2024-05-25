@@ -57,9 +57,13 @@ export default function RecordItem({ item, index }) {
         onPress={() => setVisible(true)}
       />
       <ModelBox visible={visible} setVisible={setVisible}>
-        <TaskInput value={task} onChangeText={(text) => setTask(text)} />
+        <TaskInput
+          placeholder="Task name cannot be empty"
+          value={task}
+          onChangeText={(text) => setTask(text)}
+        />
         <View style={styles.buttonGroup}>
-          <Button icon="pencil" onPress={onEdit} mode="contained">
+          <Button icon="pencil" disabled={task.length===0} onPress={onEdit} mode="contained">
             Update
           </Button>
           <Button icon="trash-can" onPress={onDelete} mode="contained">

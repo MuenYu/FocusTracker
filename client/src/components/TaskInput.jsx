@@ -1,10 +1,10 @@
 import { TextInput } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
-export default function TaskInput({ value, onChangeText, onBlur }) {
+export default function TaskInput({ placeholder ,value, onChangeText, onBlur }) {
   return (
     <TextInput
-      placeholder="Write down your task"
+      placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
       style={styles.input}
