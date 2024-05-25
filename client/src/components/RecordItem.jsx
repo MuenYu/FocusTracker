@@ -1,33 +1,23 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, TextInput, List } from "react-native-paper";
+import { Button, List } from "react-native-paper";
 import { View, StyleSheet, Alert } from "react-native";
 import { Timestamp2Date } from "../util/format";
 import AppContext from "../context/AppContext";
 import ModelBox from "./ModelBox";
+import TaskInput from "./TaskInput";
 
 export default function RecordItem({ item, index }) {
   const { setAppData } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
   const [task, setTask] = useState("");
 
-  const styles = StyleSheet.create({
-    buttonGroup: {
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      gap: 5,
-    },
-  });
-
   useEffect(() => {
     setTask(item.task);
   }, [visible]);
 
   const onEdit = () => {
-    if (task.length === 0 || task.length > 50) {
-      Alert.alert(
-        "Wrong Input",
-        "The task name should be 1~50 characters long."
-      );
+    if (task.length === 0) {
+      Alert.alert("Empty Task Name", "The task name cannot be empty.");
       return;
     }
     // TODO: sync with api
@@ -67,11 +57,7 @@ export default function RecordItem({ item, index }) {
         onPress={() => setVisible(true)}
       />
       <ModelBox visible={visible} setVisible={setVisible}>
-        <TextInput
-          label="Task name"
-          value={task}
-          onChangeText={(text) => setTask(text)}
-        />
+        <TaskInput value={task} onChangeText={(text) => setTask(text)} />
         <View style={styles.buttonGroup}>
           <Button icon="pencil" onPress={onEdit} mode="contained">
             Update
@@ -84,3 +70,11 @@ export default function RecordItem({ item, index }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    gap: 5,
+  },
+});

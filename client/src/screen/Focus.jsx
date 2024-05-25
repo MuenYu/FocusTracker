@@ -14,9 +14,14 @@ export default function Focus() {
         <View style={styles.subContainer}>
           <Text style={styles.title}>Ready to keep focus?</Text>
           <TaskInput
-            task={task}
-            setTask={setTask}
-            setShowTimer={setShowTimer}
+            value={task}
+            onChangeText={(text)=>setTask(text)}
+            onBlur={()=>{
+              setTask(task.trim())
+              if (task.length > 0) {
+                setShowTimer(true)
+              }
+            }}
           />
         </View>
       )}
