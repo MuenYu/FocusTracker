@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { Text, Button } from "react-native-paper";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { Seconds2Time } from "../util/format";
 import AppContext from "../context/AppContext";
+import PopupContext from "../context/PopupContext";
 
 export default function Timer({ task, setTask, setShowTimer }) {
   const { setAppData } = useContext(AppContext);
-  const [duration, setDuration] = useState(1000);
+  const { setNotice } = useContext(PopupContext);
+  const [duration, setDuration] = useState(0);
   const intervalRef = useRef(null);
 
   /**
@@ -16,10 +18,7 @@ export default function Timer({ task, setTask, setShowTimer }) {
   const stop = async () => {
     resetInterval();
     if (duration < 300) {
-      Alert.alert(
-        "Short Focus Time",
-        "Focus time under 5 minutes won't be recorded."
-      );
+      setNotice("Focus time under 5 minutes won't be recorded.");
     } else {
       const record = {
         task: task,
@@ -28,11 +27,11 @@ export default function Timer({ task, setTask, setShowTimer }) {
         sync: false,
       };
       // TODO: save the data to remote
-      setAppData(prevAppData => ({
+      setAppData((prevAppData) => ({
         ...prevAppData,
         records: [record, ...prevAppData.records],
       }));
-      Alert.alert("Success", "Your record has been saved.");
+      setNotice("Your record has been saved.");
     }
     setShowTimer(false);
     setTask("");

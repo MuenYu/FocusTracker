@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import Timer from "../components/Timer";
 import TaskInput from "../components/TaskInput";
 import { Text } from "react-native-paper";
+import PopupContext from "../context/PopupContext";
 
 export default function Focus() {
   const [task, setTask] = useState("");
   const [showTimer, setShowTimer] = useState(false);
+  const {setNotice} = useContext(PopupContext);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,7 +22,8 @@ export default function Focus() {
             onBlur={() => {
               setTask(task.trim());
               if (task.length > 0) {
-                setShowTimer(true);
+                setNotice('Start Focusing!');
+                setShowTimer(true)
               }
             }}
           />

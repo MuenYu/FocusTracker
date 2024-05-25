@@ -12,7 +12,7 @@ import RecordItem from "../components/RecordItem";
 
 export default function History() {
   const theme = useTheme();
-  const { appData, setAppData } = useContext(AppContext);
+  const { appData } = useContext(AppContext);
   const [refreshing, setRefreshing] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [keyword, setKeyword] = useState("");
