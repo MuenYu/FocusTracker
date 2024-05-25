@@ -11,14 +11,12 @@ export default function Timer({ task, setTask, setShowTimer }) {
   const { setNotice } = useContext(PopupContext);
   const [duration, setDuration] = useState(0);
   const intervalRef = useRef(null);
+  const minimumFocusTime = 2;
 
-  /**
-   * if user press the stop button
-   */
-  const stop = async () => {
+  const stop = () => {
     resetInterval();
-    if (duration < 300) {
-      setNotice("Focus time under 5 minutes won't be recorded.");
+    if (duration < minimumFocusTime * 60) {
+      setNotice(`Focus time under ${minimumFocusTime} minutes won't be recorded.`);
     } else {
       const record = {
         task: task,
