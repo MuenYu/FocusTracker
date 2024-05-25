@@ -45,8 +45,8 @@ export default function History() {
       <FlatList
         contentContainerStyle={styles.flatListContainer}
         data={filteredRecords}
-        renderItem={({ item, index }) => (
-          <RecordItem item={item} index={index} />
+        renderItem={({ item }) => (
+          <RecordItem item={item} index={appData.records.indexOf(item)} />
         )}
         refreshControl={
           <RefreshControl
