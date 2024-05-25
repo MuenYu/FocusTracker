@@ -1,30 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import {
-  Modal,
-  Portal,
-  Button,
-  TextInput,
-  List,
-  useTheme,
-} from "react-native-paper";
+import { Button, TextInput, List } from "react-native-paper";
 import { View, StyleSheet, Alert } from "react-native";
 import { Timestamp2Date } from "../util/format";
 import AppContext from "../context/AppContext";
+import ModelBox from "./ModelBox";
 
 export default function RecordItem({ item, index }) {
-  const theme = useTheme();
   const { setAppData } = useContext(AppContext);
   const [visible, setVisible] = useState(false);
   const [task, setTask] = useState("");
 
   const styles = StyleSheet.create({
-    modalContainer: {
-      backgroundColor: theme.colors.background,
-      padding: 20,
-      margin: 20,
-      borderRadius: 10,
-      gap: 15,
-    },
     buttonGroup: {
       flexDirection: "row",
       justifyContent: "space-evenly",
@@ -80,28 +66,21 @@ export default function RecordItem({ item, index }) {
         )} minutes | Date: ${Timestamp2Date(item.timestamp)}`}
         onPress={() => setVisible(true)}
       />
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={() => setVisible(false)}
-          contentContainerStyle={styles.modalContainer}
-        >
-          <TextInput
-            mode="outlined"
-            label="Task name"
-            value={task}
-            onChangeText={(text) => setTask(text)}
-          />
-          <View style={styles.buttonGroup}>
-            <Button icon="pencil" onPress={onEdit} mode="contained">
-              Update
-            </Button>
-            <Button icon="trash-can" onPress={onDelete} mode="contained">
-              Delete
-            </Button>
-          </View>
-        </Modal>
-      </Portal>
+      <ModelBox visible={visible} setVisible={setVisible}>
+        <TextInput
+          label="Task name"
+          value={task}
+          onChangeText={(text) => setTask(text)}
+        />
+        <View style={styles.buttonGroup}>
+          <Button icon="pencil" onPress={onEdit} mode="contained">
+            Update
+          </Button>
+          <Button icon="trash-can" onPress={onDelete} mode="contained">
+            Delete
+          </Button>
+        </View>
+      </ModelBox>
     </View>
   );
 }
