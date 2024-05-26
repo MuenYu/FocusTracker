@@ -7,20 +7,7 @@ import PopupContext from "../context/PopupContext";
 
 export default function EditModal({ editItem, setEditItem }) {
   const theme = useTheme();
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: theme.colors.background,
-      padding: 20,
-      margin: 20,
-      borderRadius: 10,
-      gap: 15,
-    },
-    buttonGroup: {
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      gap: 5,
-    },
-  });
+  const styles = createStyles(theme)
 
   const { appData, setAppData } = useContext(AppContext);
   const { setNotice } = useContext(PopupContext);
@@ -88,3 +75,18 @@ export default function EditModal({ editItem, setEditItem }) {
     </Portal>
   );
 }
+
+const createStyles = (theme) => StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.background,
+    padding: 20,
+    margin: 20,
+    borderRadius: 10,
+    gap: 15,
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 15,
+  },
+});
