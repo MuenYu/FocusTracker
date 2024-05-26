@@ -13,21 +13,15 @@ export default function App() {
 
   // load records at the beginning
   useEffect(() => {
-    async function loadAppData() {
-      // ResetData()
-      const data = await LoadData();
+    LoadData().then((data)=>{
       setAppData(data);
-    }
-    loadAppData();
+    })
   }, []);
 
   // every time state changes, it will update the asyncstorage
   useEffect(() => {
-    async function saveAppData(appData) {
-      SaveData(appData);
-    }
     if (appData) {
-      saveAppData(appData);
+      SaveData(appData);
     }
   }, [appData]);
 

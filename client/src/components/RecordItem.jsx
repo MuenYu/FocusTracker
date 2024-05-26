@@ -43,6 +43,7 @@ export default function RecordItem({ item, index }) {
         records: prev.records,
       };
     });
+    setNotice("Delete success!");
     setVisible(false);
   };
 
