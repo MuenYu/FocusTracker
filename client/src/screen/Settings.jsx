@@ -14,6 +14,7 @@ export default function Settings() {
         value={appData.isDark}
         onValueChange={() => setAppData({...appData, isDark: !appData.isDark})}
       />
+      <Text>{JSON.stringify(appData)}</Text>
     </SafeAreaView>
   );
 }
@@ -23,5 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 20
   },
 });
