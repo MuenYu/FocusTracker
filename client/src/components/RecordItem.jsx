@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Button, List } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { Timestamp2Date } from "../util/format";
@@ -11,11 +11,7 @@ export default function RecordItem({ item, index }) {
   const { setAppData } = useContext(AppContext);
   const { setNotice } = useContext(PopupContext);
   const [visible, setVisible] = useState(false);
-  const [task, setTask] = useState("");
-
-  useEffect(() => {
-    setTask(item.task);
-  }, [visible]);
+  const [task, setTask] = useState(item.task);
 
   const onEdit = () => {
     // TODO: sync with api
@@ -63,7 +59,12 @@ export default function RecordItem({ item, index }) {
           onChangeText={(text) => setTask(text)}
         />
         <View style={styles.buttonGroup}>
-          <Button icon="pencil" disabled={task.length===0} onPress={onEdit} mode="contained">
+          <Button
+            icon="pencil"
+            disabled={task.length === 0}
+            onPress={onEdit}
+            mode="contained"
+          >
             Update
           </Button>
           <Button icon="trash-can" onPress={onDelete} mode="contained">

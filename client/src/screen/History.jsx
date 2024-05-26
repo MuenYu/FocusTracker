@@ -6,7 +6,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { Appbar, useTheme, Searchbar } from "react-native-paper";
-import Empty from "../components/Empty";
+import Prompt from "../components/Prompt";
 import AppContext from "../context/AppContext";
 import RecordItem from "../components/RecordItem";
 
@@ -14,7 +14,6 @@ export default function History() {
   const theme = useTheme();
   const { appData } = useContext(AppContext);
   const [refreshing, setRefreshing] = useState(false);
-  const [showSearchBar, setShowSearchBar] = useState(false);
   const [keyword, setKeyword] = useState("");
 
   const onRefresh = () => {
@@ -32,15 +31,13 @@ export default function History() {
     <SafeAreaView style={styles.container}>
       <Appbar>
         <Appbar.Content title="My Focus History" />
-        <Appbar.Action
-          icon="magnify"
-          onPress={() => {
-            setShowSearchBar(!showSearchBar);
-          }}
-        />
       </Appbar>
-      {showSearchBar && (
-        <Searchbar mode="view" onChangeText={setKeyword} value={keyword} />
+      {appData.records.length > 0 && (
+        <Searchbar
+          style={styles.searchBar}
+          onChangeText={setKeyword}
+          value={keyword}
+        />
       )}
       <FlatList
         contentContainerStyle={styles.flatListContainer}
@@ -55,7 +52,7 @@ export default function History() {
             tintColor={theme.colors.onBackground}
           />
         }
-        ListEmptyComponent={<Empty name={"focus records"} />}
+        ListEmptyComponent={<Prompt prompt={"No existing focus records"} />}
       />
     </SafeAreaView>
   );
@@ -67,5 +64,8 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     flexGrow: 1,
+  },
+  searchBar: {
+    margin: 10,
   },
 });

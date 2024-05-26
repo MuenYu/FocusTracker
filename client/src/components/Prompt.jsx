@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-export default function Empty({ name }) {
+export default function Prompt({ prompt }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>No existing {name} yet</Text>
+      <Text style={styles.text}>{prompt}</Text>
     </View>
   );
 }
