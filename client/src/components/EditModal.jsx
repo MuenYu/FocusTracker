@@ -1,19 +1,34 @@
+import { Modal, Portal, useTheme, Button } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
 import { useContext, useState } from "react";
-import { Button, List } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
-import { Timestamp2Date } from "../util/format";
 import AppContext from "../context/AppContext";
-import PopupContext from "../context/PopupContext";
-import ModalBox from "./ModalBox";
 import TaskInput from "./TaskInput";
+import PopupContext from "../context/PopupContext";
 
-export default function RecordItem({ item, index }) {
-  const { setAppData } = useContext(AppContext);
+export default function EditModal({ editItem, setEditItem }) {
+  const theme = useTheme();
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: theme.colors.background,
+      padding: 20,
+      margin: 20,
+      borderRadius: 10,
+      gap: 15,
+    },
+    buttonGroup: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      gap: 5,
+    },
+  });
+
+  const { appData, setAppData } = useContext(AppContext);
   const { setNotice } = useContext(PopupContext);
-  const [visible, setVisible] = useState(false);
-  const [task, setTask] = useState(item.task);
+  const [task, setTask] = useState(editItem.task);
 
   const onEdit = () => {
+    if (task.trim() === editItem.task) return;
+    const index = appData.records.indexOf(editItem);
     // TODO: sync with api
     setAppData((prev) => {
       const records = prev.records;
@@ -27,10 +42,11 @@ export default function RecordItem({ item, index }) {
       };
     });
     setNotice("Update success!");
-    setVisible(false);
+    setEditItem(null)
   };
 
   const onDelete = () => {
+    const index = appData.records.indexOf(editItem);
     // TODO: delete from server
     setAppData((prev) => {
       prev.records.splice(index, 1);
@@ -40,19 +56,16 @@ export default function RecordItem({ item, index }) {
       };
     });
     setNotice("Delete success!");
-    setVisible(false);
+    setEditItem(null)
   };
 
   return (
-    <View>
-      <List.Item
-        title={item.task}
-        description={`Duration: ${Math.floor(
-          item.duration / 60
-        )} minutes | Date: ${Timestamp2Date(item.timestamp)}`}
-        onPress={() => setVisible(true)}
-      />
-      <ModalBox visible={visible} setVisible={setVisible}>
+    <Portal>
+      <Modal
+        visible={true}
+        onDismiss={() => setEditItem(null)}
+        contentContainerStyle={styles.container}
+      >
         <TaskInput
           placeholder="Task name cannot be empty"
           value={task}
@@ -71,15 +84,7 @@ export default function RecordItem({ item, index }) {
             Delete
           </Button>
         </View>
-      </ModalBox>
-    </View>
+      </Modal>
+    </Portal>
   );
 }
-
-const styles = StyleSheet.create({
-  buttonGroup: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    gap: 5,
-  },
-});

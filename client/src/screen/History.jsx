@@ -5,16 +5,18 @@ import {
   FlatList,
   RefreshControl,
 } from "react-native";
-import { Appbar, useTheme, Searchbar } from "react-native-paper";
+import { Appbar, useTheme, Searchbar, List, Text } from "react-native-paper";
 import Prompt from "../components/Prompt";
 import AppContext from "../context/AppContext";
-import RecordItem from "../components/RecordItem";
+import { Timestamp2Date } from "../util/format";
+import EditModal from "../components/EditModal";
 
 export default function History() {
   const theme = useTheme();
   const { appData } = useContext(AppContext);
   const [refreshing, setRefreshing] = useState(false);
   const [keyword, setKeyword] = useState("");
+  const [editItem, setEditItem] = useState(null);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -43,7 +45,13 @@ export default function History() {
         contentContainerStyle={styles.flatListContainer}
         data={filteredRecords}
         renderItem={({ item }) => (
-          <RecordItem item={item} index={appData.records.indexOf(item)} />
+          <List.Item
+            title={item.task}
+            description={`Duration: ${Math.floor(
+              item.duration / 60
+            )} minutes | Date: ${Timestamp2Date(item.timestamp)}`}
+            onPress={() => setEditItem(item)}
+          />
         )}
         refreshControl={
           <RefreshControl
@@ -54,6 +62,7 @@ export default function History() {
         }
         ListEmptyComponent={<Prompt prompt={"No existing focus records"} />}
       />
+      {editItem && <EditModal editItem={editItem} setEditItem={setEditItem} />}
     </SafeAreaView>
   );
 }
