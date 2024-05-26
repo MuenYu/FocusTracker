@@ -73,6 +73,7 @@ export default function Timer({ task, setTask, setShowTimer }) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: 50,

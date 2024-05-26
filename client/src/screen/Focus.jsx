@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import Timer from "../components/Timer";
 import TaskInput from "../components/TaskInput";
 import { Text } from "react-native-paper";
@@ -8,12 +8,14 @@ import PopupContext from "../context/PopupContext";
 export default function Focus() {
   const [task, setTask] = useState("");
   const [showTimer, setShowTimer] = useState(false);
-  const {setNotice} = useContext(PopupContext);
+  const { setNotice } = useContext(PopupContext);
 
   return (
     <SafeAreaView style={styles.container}>
-      {!showTimer && (
-        <View style={styles.subContainer}>
+      {showTimer ? (
+        <Timer task={task} setTask={setTask} setShowTimer={setShowTimer} />
+      ) : (
+        <ScrollView contentContainerStyle={styles.subContainer}>
           <Text style={styles.title}>Ready to keep focus?</Text>
           <TaskInput
             placeholder="Write down your task"
@@ -22,15 +24,12 @@ export default function Focus() {
             onBlur={() => {
               setTask(task.trim());
               if (task.length > 0) {
-                setNotice('Start Focusing!');
-                setShowTimer(true)
+                setNotice("Start Focusing!");
+                setShowTimer(true);
               }
             }}
           />
-        </View>
-      )}
-      {showTimer && (
-        <Timer task={task} setTask={setTask} setShowTimer={setShowTimer} />
+        </ScrollView>
       )}
     </SafeAreaView>
   );
@@ -39,10 +38,9 @@ export default function Focus() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   subContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: 20,
