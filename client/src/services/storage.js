@@ -17,5 +17,6 @@ export async function ResetData() {
 
 export const defaultAppData = {
   isDark: false, // true: dark, false: light
+  zoom: 1,
   records: [], // local record state
 };
