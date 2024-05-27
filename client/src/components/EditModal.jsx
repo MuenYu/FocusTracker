@@ -1,13 +1,14 @@
-import { Modal, Portal, useTheme, Button } from "react-native-paper";
+import { Modal, Portal, useTheme } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import TaskInput from "./TaskInput";
 import PopupContext from "../context/PopupContext";
+import Btn from "./Btn";
 
 export default function EditModal({ editItem, setEditItem }) {
   const theme = useTheme();
-  const styles = createStyles(theme)
+  const styles = createStyles(theme);
 
   const { appData, setAppData } = useContext(AppContext);
   const { setNotice } = useContext(PopupContext);
@@ -29,7 +30,7 @@ export default function EditModal({ editItem, setEditItem }) {
       };
     });
     setNotice("Update success!");
-    setEditItem(null)
+    setEditItem(null);
   };
 
   const onDelete = () => {
@@ -43,7 +44,7 @@ export default function EditModal({ editItem, setEditItem }) {
       };
     });
     setNotice("Delete success!");
-    setEditItem(null)
+    setEditItem(null);
   };
 
   return (
@@ -59,34 +60,26 @@ export default function EditModal({ editItem, setEditItem }) {
           onChangeText={(text) => setTask(text)}
         />
         <View style={styles.buttonGroup}>
-          <Button
-            icon="pencil"
-            disabled={task.length === 0}
-            onPress={onEdit}
-            mode="contained"
-          >
-            Update
-          </Button>
-          <Button icon="trash-can" onPress={onDelete} mode="contained">
-            Delete
-          </Button>
+          <Btn disabled={task.length === 0} onPress={onEdit} label="Update" />
+          <Btn onPress={onDelete} label="Delete" />
         </View>
       </Modal>
     </Portal>
   );
 }
 
-const createStyles = (theme) => StyleSheet.create({
-  container: {
-    backgroundColor: theme.colors.background,
-    padding: 20,
-    margin: 20,
-    borderRadius: 10,
-    gap: 15,
-  },
-  buttonGroup: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginTop: 15,
-  },
-});
+const createStyles = (theme) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: theme.colors.background,
+      padding: 20,
+      margin: 20,
+      borderRadius: 10,
+      gap: 15,
+    },
+    buttonGroup: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      marginTop: 15,
+    },
+  });

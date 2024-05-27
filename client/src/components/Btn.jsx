@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import AppContext from "../context/AppContext";
 
-export default function Btn({ icon, label, onPress }) {
+export default function Btn({ icon, label, disabled, onPress }) {
   const { appData } = useContext(AppContext);
   const styles = createStyles(appData.zoom);
 
@@ -12,6 +12,7 @@ export default function Btn({ icon, label, onPress }) {
       icon={icon}
       mode="contained"
       onPress={onPress}
+      disabled={disabled}
       labelStyle={styles.buttonLabel}
     >
       {label}
