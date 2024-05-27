@@ -21,31 +21,31 @@ export default function Statistics() {
       {stats ? (
         <ScrollView contentContainerStyle={styles.main}>
           <StatCard
-            prefix="Your total focus time is"
+            prefix="Your total focus time"
             counter={Math.floor(stats.totalTime / 3600)}
             unit="hour"
             units="hours"
           />
           <StatCard
-            prefix="You keep focused for"
+            prefix="Your Focus Counter"
             counter={stats.totalCount}
             unit="time"
             units="times"
           />
           <StatCard
-            prefix="Your longest focus record is"
+            prefix="Your Longest Focus Time"
             counter={Math.floor(stats.longestFocus / 60)}
             unit="minute"
             units="minutes"
           />
           <StatCard
-            prefix="Your shortest focus record is"
+            prefix="Your Shortest Focus Time"
             counter={Math.floor(stats.shortestFocus / 60)}
             unit="minute"
             units="minutes"
           />
           <StatCard
-            prefix="Your average focus period is"
+            prefix="Your Average Focus Time"
             counter={Math.floor(stats.avgPeriod / 60)}
             unit="minute"
             units="minutes"
