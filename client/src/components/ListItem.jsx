@@ -11,6 +11,7 @@ export default function ListItem({ title, description, onPress, right }) {
     <List.Item
       title={title}
       description={description}
+      style={styles.body}
       onPress={onPress}
       titleStyle={styles.title}
       descriptionStyle={styles.description}
@@ -21,6 +22,10 @@ export default function ListItem({ title, description, onPress, right }) {
 
 const createStyles = (zoom) =>
   StyleSheet.create({
+    body: {
+      justifyContent: 'center',
+      minHeight: 60,
+    },
     title: {
       fontSize: 18 * zoom,
     },

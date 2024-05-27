@@ -6,6 +6,7 @@ import History from "../screen/History";
 import Statistics from "../screen/Statistics";
 import Settings from "../screen/Settings";
 import { useTheme } from "react-native-paper";
+import SettingsStack from "./SettingNavigation";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -44,7 +45,7 @@ export default function BottomNavigation() {
         />
         <Tab.Screen
           name="Settings"
-          component={Settings}
+          component={SettingsStack}
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="tools" color={color} size={26} />

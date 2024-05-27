@@ -1,16 +1,16 @@
-// src/screens/SettingsScreen.js
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
-import { useTheme, Switch, Text } from "react-native-paper";
+import { useTheme, Switch } from "react-native-paper";
 import AppContext from "../context/AppContext";
 import Slider from "@react-native-community/slider";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Settings() {
   const { appData, setAppData } = useContext(AppContext);
   const theme = useTheme();
-  const styles = StyleSheet.create(createStyle(theme));
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,7 +31,7 @@ export default function Settings() {
           title="Font Size"
           right={() => (
             <Slider
-              style={{ width: "40%", height: 40 }}
+              style={styles.slide}
               minimumValue={1}
               maximumValue={1.5}
               step={0.25}
@@ -45,14 +45,25 @@ export default function Settings() {
             />
           )}
         />
-        <Text>{JSON.stringify(appData)}</Text>
+        <ListItem
+          title="About"
+          onPress={() => {
+            navigation.navigate("About");
+          }}
+        />
+        <ListItem
+          title="Sign Out"
+          onPress={() => {
+          }}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const createStyle = (theme) => ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  slide: { width: "40%", height: 20 },
 });

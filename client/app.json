@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Time Tracker",
-    "slug": "time-tracker",
-    "scheme": "timetracker",
+    "name": "Focus Tracker",
+    "slug": "focus-tracker",
+    "scheme": "focustracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,7 +16,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "best.mashiro.taskcounter",
+      "package": "best.mashiro.focustracker",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
