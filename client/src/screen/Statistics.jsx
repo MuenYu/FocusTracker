@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { Appbar } from "react-native-paper";
 import AppContext from "../context/AppContext";
 import { statistic } from "../services/statistics";
 import Prompt from "../components/Prompt";

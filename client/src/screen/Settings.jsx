@@ -1,10 +1,11 @@
 // src/screens/SettingsScreen.js
 import React, { useContext } from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
-import { Appbar, List, useTheme, Switch, Text } from "react-native-paper";
+import { useTheme, Switch, Text } from "react-native-paper";
 import AppContext from "../context/AppContext";
 import Slider from "@react-native-community/slider";
 import Header from "../components/Header";
+import ListItem from "../components/ListItem";
 
 export default function Settings() {
   const { appData, setAppData } = useContext(AppContext);
@@ -15,7 +16,7 @@ export default function Settings() {
     <SafeAreaView style={styles.container}>
       <Header title="Application Settings" />
       <ScrollView>
-        <List.Item
+        <ListItem
           title="Dark Mode"
           right={() => (
             <Switch
@@ -26,7 +27,7 @@ export default function Settings() {
             />
           )}
         />
-        <List.Item
+        <ListItem
           title="Font Size"
           right={() => (
             <Slider
