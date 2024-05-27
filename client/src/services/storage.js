@@ -11,10 +11,6 @@ export async function LoadData() {
   return data ? data : defaultAppData;
 }
 
-export async function ResetData() {
-  await AsyncStorage.removeItem(key);
-}
-
 export const defaultAppData = {
   isDark: false, // true: dark, false: light
   zoom: 1,

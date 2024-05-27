@@ -6,6 +6,7 @@ import Slider from "@react-native-community/slider";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 import { useNavigation } from "@react-navigation/native";
+import { defaultAppData } from "../services/storage";
 
 export default function Settings() {
   const { appData, setAppData } = useContext(AppContext);
@@ -54,6 +55,7 @@ export default function Settings() {
         <ListItem
           title="Sign Out"
           onPress={() => {
+            setAppData(defaultAppData);
           }}
         />
       </ScrollView>

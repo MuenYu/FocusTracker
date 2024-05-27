@@ -15,7 +15,10 @@ export default function EditModal({ editItem, setEditItem }) {
   const [task, setTask] = useState(editItem.task);
 
   const onEdit = () => {
-    if (task.trim() === editItem.task) return;
+    if (task.trim() === editItem.task) {
+      setEditItem(null);
+      return;
+    }
     const index = appData.records.indexOf(editItem);
     // TODO: sync with api
     setAppData((prev) => {
