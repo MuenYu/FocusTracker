@@ -5,11 +5,14 @@ import {
   FlatList,
   RefreshControl,
 } from "react-native";
-import { Appbar, useTheme, Searchbar, List, Text } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import Prompt from "../components/Prompt";
 import AppContext from "../context/AppContext";
 import { Timestamp2Date } from "../util/format";
 import EditModal from "../components/EditModal";
+import Header from "../components/Header";
+import Search from "../components/Search";
+import ListItem from "../components/ListItem";
 
 export default function History() {
   const theme = useTheme();
@@ -31,21 +34,15 @@ export default function History() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar>
-        <Appbar.Content title="My Focus History" />
-      </Appbar>
+      <Header title="My Focus History" />
       {appData.records.length > 0 && (
-        <Searchbar
-          style={styles.searchBar}
-          onChangeText={setKeyword}
-          value={keyword}
-        />
+        <Search keyword={keyword} setKeyword={setKeyword} />
       )}
       <FlatList
         contentContainerStyle={styles.flatListContainer}
         data={filteredRecords}
         renderItem={({ item }) => (
-          <List.Item
+          <ListItem
             title={item.task}
             description={`Duration: ${Math.floor(
               item.duration / 60
@@ -73,8 +70,5 @@ const styles = StyleSheet.create({
   },
   flatListContainer: {
     flexGrow: 1,
-  },
-  searchBar: {
-    margin: 10,
   },
 });

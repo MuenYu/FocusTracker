@@ -5,6 +5,7 @@ import AppContext from "../context/AppContext";
 import { statistic } from "../services/statistics";
 import Prompt from "../components/Prompt";
 import StatCard from "../components/StatCard";
+import Header from "../components/Header";
 
 export default function Statistics() {
   const { appData } = useContext(AppContext);
@@ -16,9 +17,7 @@ export default function Statistics() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar>
-        <Appbar.Content title="My Focus Statistics" />
-      </Appbar>
+      <Header title="My Focus Statistics" />
       {stats ? (
         <ScrollView contentContainerStyle={styles.main}>
           <StatCard

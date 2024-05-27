@@ -4,6 +4,7 @@ import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { Appbar, List, useTheme, Switch, Text } from "react-native-paper";
 import AppContext from "../context/AppContext";
 import Slider from "@react-native-community/slider";
+import Header from "../components/Header";
 
 export default function Settings() {
   const { appData, setAppData } = useContext(AppContext);
@@ -12,9 +13,7 @@ export default function Settings() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar>
-        <Appbar.Content title="Application Setting" />
-      </Appbar>
+      <Header title="Application Settings" />
       <ScrollView>
         <List.Item
           title="Dark Mode"
@@ -36,8 +35,8 @@ export default function Settings() {
               maximumValue={1.5}
               step={0.25}
               value={appData.zoom}
-              onValueChange={(value)=>{
-                setAppData({...appData, zoom: value })
+              onValueChange={(value) => {
+                setAppData({ ...appData, zoom: value });
               }}
               minimumTrackTintColor={theme.colors.primary}
               maximumTrackTintColor={theme.colors.primary}
@@ -46,7 +45,6 @@ export default function Settings() {
           )}
         />
         <Text>{JSON.stringify(appData)}</Text>
-        <Text>{JSON.stringify(theme.fonts.title)}</Text>
       </ScrollView>
     </SafeAreaView>
   );
