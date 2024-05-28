@@ -2,7 +2,7 @@ import { Modal, Portal, useTheme } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
-import TaskInput from "./TaskInput";
+import InputControl from "./InputControl";
 import PopupContext from "../context/PopupContext";
 import Btn from "./Btn";
 
@@ -57,7 +57,7 @@ export default function EditModal({ editItem, setEditItem }) {
         onDismiss={() => setEditItem(null)}
         contentContainerStyle={styles.container}
       >
-        <TaskInput
+        <InputControl
           placeholder="Task name cannot be empty"
           value={task}
           onChangeText={(text) => setTask(text)}

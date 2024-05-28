@@ -1,6 +1,6 @@
 import Title from "../components/Title";
 import { ScrollView, StyleSheet } from "react-native";
-import TaskInput from "../components/TaskInput";
+import InputControl from "../components/InputControl";
 import { useContext } from "react";
 import PopupContext from "../context/PopupContext";
 
@@ -10,7 +10,7 @@ export default function FocusInput({ task, setTask, setShowTimer }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Title>Ready to keep focus?</Title>
-      <TaskInput
+      <InputControl
         placeholder="Write down your task"
         value={task}
         onChangeText={(text) => setTask(text)}
