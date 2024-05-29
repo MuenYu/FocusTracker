@@ -1,11 +1,11 @@
 import { Card, Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useContext } from "react";
-import AppContext from "../context/AppContext";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function StatCard({ prefix, counter, unit, units }) {
-  const { appData } = useContext(AppContext);
-  const styles = createStyles(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyles(appConfig.zoom);
 
   return (
     <Card style={styles.card}>
@@ -25,10 +25,10 @@ const createStyles = (zoom) =>
       marginHorizontal: 5,
     },
     title: {
-      fontSize: 20 * zoom
+      fontSize: 20 * zoom,
     },
     value: {
       textAlign: "center",
-      fontSize: 40 * zoom
+      fontSize: 40 * zoom,
     },
   });

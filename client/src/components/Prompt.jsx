@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import AppContext from "../context/AppContext";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function Prompt({ prompt }) {
-  const {appData} = useContext(AppContext)
-  const styles = createStyles(appData.zoom)
+  const {appConfig} = useContext(AppConfigContext)
+  const styles = createStyles(appConfig.zoom)
 
   return (
     <View style={styles.container}>

@@ -1,50 +1,45 @@
 import { Modal, Portal, useTheme } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { useContext, useState } from "react";
-import AppContext from "../context/AppContext";
 import InputControl from "./InputControl";
 import PopupContext from "../context/PopupContext";
 import Btn from "./Btn";
+import AppDataContext from "../context/AppDataContext";
 
 export default function EditModal({ editItem, setEditItem }) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const { appData, setAppData } = useContext(AppContext);
+  const { appData, updateAppData } = useContext(AppDataContext);
   const { setNotice } = useContext(PopupContext);
   const [task, setTask] = useState(editItem.task);
 
-  const onEdit = () => {
+  const onEdit = async () => {
     if (task.trim() === editItem.task) {
       setEditItem(null);
       return;
     }
-    const index = appData.records.indexOf(editItem);
-    // TODO: sync with api
-    setAppData((prev) => {
-      const records = prev.records;
-      records[index] = {
-        ...records[index],
-        task: task.trim(),
-      };
-      return {
-        ...prev,
-        records: records,
-      };
+    const records = appData.records;
+    const index = records.indexOf(editItem);
+    records[index] = {
+      ...records[index],
+      task: task.trim(),
+    };
+    await updateAppData({
+      ...appData,
+      records: records,
     });
     setNotice("Update success!");
     setEditItem(null);
   };
 
-  const onDelete = () => {
-    const index = appData.records.indexOf(editItem);
-    // TODO: delete from server
-    setAppData((prev) => {
-      prev.records.splice(index, 1);
-      return {
-        ...prev,
-        records: prev.records,
-      };
+  const onDelete = async () => {
+    const records = appData.records;
+    const index = records.indexOf(editItem);
+    records.splice(index, 1);
+    await updateAppData({
+      ...appData,
+      records: records,
     });
     setNotice("Delete success!");
     setEditItem(null);

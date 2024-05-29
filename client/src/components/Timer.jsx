@@ -3,7 +3,7 @@ import { Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { Seconds2Time } from "../util/format";
-import AppContext from "../context/AppContext";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function Timer({
   duration,
@@ -11,8 +11,8 @@ export default function Timer({
   intervalRef,
   resetInterval,
 }) {
-  const { appData } = useContext(AppContext);
-  const styles = createStyles(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyles(appConfig.zoom);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {

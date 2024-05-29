@@ -3,15 +3,15 @@ import { useState, useContext, useRef } from "react";
 import PopupContext from "../context/PopupContext";
 import Title from "../components/Title";
 import Timer from "../components/Timer";
-import AppContext from "../context/AppContext";
 import Btn from "../components/Btn";
+import AppDataContext from "../context/AppDataContext";
 
 const minimumFocusTime = 2;
 
 export default function FocusTimer({ task, setTask, setShowTimer }) {
   const [duration, setDuration] = useState(0);
   const { setNotice } = useContext(PopupContext);
-  const { setAppData } = useContext(AppContext);
+  const { appData, updateAppData } = useContext(AppDataContext);
   const intervalRef = useRef(null);
 
   const resetInterval = () => {
@@ -35,10 +35,10 @@ export default function FocusTimer({ task, setTask, setShowTimer }) {
         sync: false,
       };
       // TODO: save the data to remote
-      setAppData((prevAppData) => ({
-        ...prevAppData,
-        records: [record, ...prevAppData.records],
-      }));
+      updateAppData({
+        ...appData,
+        records: [record, ...appData.records],
+      });
       setNotice("Your record has been saved.");
     }
     setShowTimer(false);

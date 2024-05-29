@@ -6,25 +6,22 @@ import Logo from "../components/Logo";
 import Title from "../components/Title";
 import Btn from "../components/Btn";
 import PopupContext from "../context/PopupContext";
-import { login, register } from "../api/user";
-import AppContext from "../context/AppContext";
+import { loginAPI, registerAPI } from "../api/user";
+import AuthContext from "../context/AuthContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setAppData } = useContext(AppContext);
+  const { login } = useContext(AuthContext);
   const { setNotice } = useContext(PopupContext);
   const theme = useTheme();
   const styles = createStyles(theme);
-
+  
   const onPress = (mode) => {
-    const action = mode ? login : register;
+    const action = mode ? loginAPI : registerAPI;
     action({ username, password })
-      .then((token) => {
-        setAppData((prev) => ({
-          ...prev,
-          jwt: token,
-        }));
+      .then(async (token) => {
+        await login(token);
         setNotice("Login success");
       })
       .catch((msg) => {

@@ -6,17 +6,17 @@ import {
   RefreshControl,
 } from "react-native";
 import { useTheme } from "react-native-paper";
-import Prompt from "../components/Prompt";
-import AppContext from "../context/AppContext";
-import { Timestamp2Date } from "../util/format";
-import EditModal from "../components/EditModal";
+import AppDataContext from "../context/AppDataContext";
 import Header from "../components/Header";
 import Search from "../components/Search";
+import Prompt from "../components/Prompt";
 import ListItem from "../components/ListItem";
+import { Timestamp2Date } from "../util/format";
+import EditModal from "../components/EditModal";
 
 export default function History() {
   const theme = useTheme();
-  const { appData } = useContext(AppContext);
+  const { appData, updateAppData } = useContext(AppDataContext);
   const [refreshing, setRefreshing] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [editItem, setEditItem] = useState(null);

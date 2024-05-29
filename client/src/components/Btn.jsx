@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
-import AppContext from "../context/AppContext";
+import AppContext from "../context/AppDataContext";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function Btn({ icon, label, disabled, onPress }) {
-  const { appData } = useContext(AppContext);
-  const styles = createStyles(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyles(appConfig.zoom);
 
   return (
     <Button
@@ -23,7 +24,7 @@ export default function Btn({ icon, label, disabled, onPress }) {
 const createStyles = (zoom) =>
   StyleSheet.create({
     buttonLabel: {
-        fontSize: 20 * zoom,
-        lineHeight: 20 * zoom,
+      fontSize: 20 * zoom,
+      lineHeight: 20 * zoom,
     },
   });

@@ -1,11 +1,11 @@
 import { Searchbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useContext } from "react";
-import AppContext from "../context/AppContext";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function Search({ keyword, setKeyword }) {
-  const { appData } = useContext(AppContext);
-  const styles = createStyles(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyles(appConfig.zoom);
 
   return (
     <Searchbar

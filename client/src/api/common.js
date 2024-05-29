@@ -1,5 +1,5 @@
 const api = process.env.EXPO_PUBLIC_API;
-const timeout = 3000; // 3 seconds
+const timeout = process.env.EXPO_PUBLIC_TIMEOUT; 
 
 export const sendReq = async (path, method, auth = false, data = null) => {
   const fetchPromise = fetch(`${api}${path}`, {

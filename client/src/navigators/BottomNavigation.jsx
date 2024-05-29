@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Focus from "../screen/Focus";
 import History from "../screen/History";
 import Statistics from "../screen/Statistics";
-import Settings from "../screen/Settings";
 import { useTheme } from "react-native-paper";
 import SettingsStack from "./SettingNavigation";
 

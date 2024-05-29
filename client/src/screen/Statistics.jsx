@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import AppContext from "../context/AppContext";
 import { statistic } from "../services/statistics";
 import Prompt from "../components/Prompt";
 import StatCard from "../components/StatCard";
 import Header from "../components/Header";
+import AppDataContext from "../context/AppDataContext";
 
 export default function Statistics() {
-  const { appData } = useContext(AppContext);
+  const { appData } = useContext(AppDataContext);
   const [stats, setStats] = useState(null);
 
   useEffect(() => {

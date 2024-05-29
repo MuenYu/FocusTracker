@@ -4,13 +4,13 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import Title from "../components/Title";
 import { useContext } from "react";
-import AppContext from "../context/AppContext";
 import licenses from "../../assets/licenses.json";
 import Logo from "../components/Logo";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function About() {
-  const { appData } = useContext(AppContext);
-  const styles = createStyles(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyles(appConfig.zoom);
 
   return (
     <SafeAreaView style={styles.container}>

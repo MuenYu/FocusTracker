@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { List } from "react-native-paper";
-import AppContext from "../context/AppContext";
 import { StyleSheet } from "react-native";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function ListItem({ title, description, onPress, right }) {
-  const { appData } = useContext(AppContext);
-  const styles = createStyles(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyles(appConfig.zoom);
 
   return (
     <List.Item

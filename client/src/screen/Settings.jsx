@@ -1,15 +1,20 @@
 import { useContext } from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { useTheme, Switch } from "react-native-paper";
-import AppContext from "../context/AppContext";
 import Slider from "@react-native-community/slider";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 import { useNavigation } from "@react-navigation/native";
 import PopupContext from "../context/PopupContext";
+import AuthContext from "../context/AuthContext";
+import AppConfigContext from "../context/AppConfigContext";
+import AppDataContext from "../context/AppDataContext";
 
 export default function Settings() {
-  const { appData, setAppData } = useContext(AppContext);
+  const { logout } = useContext(AuthContext);
+  const { appConfig, updateAppConfig, resetAppConfig } =
+    useContext(AppConfigContext);
+  const { resetAppData } = useContext(AppDataContext);
   const { setNotice } = useContext(PopupContext);
   const theme = useTheme();
   const navigation = useNavigation();
@@ -22,9 +27,9 @@ export default function Settings() {
           title="Dark Mode"
           right={() => (
             <Switch
-              value={appData.isDark}
+              value={appConfig.isDark}
               onValueChange={() =>
-                setAppData({ ...appData, isDark: !appData.isDark })
+                updateAppConfig({ ...appConfig, isDark: !appConfig.isDark })
               }
             />
           )}
@@ -37,9 +42,9 @@ export default function Settings() {
               minimumValue={1}
               maximumValue={1.5}
               step={0.25}
-              value={appData.zoom}
+              value={appConfig.zoom}
               onValueChange={(value) => {
-                setAppData({ ...appData, zoom: value });
+                updateAppConfig({ ...appConfig, zoom: value });
               }}
               minimumTrackTintColor={theme.colors.primary}
               maximumTrackTintColor={theme.colors.primary}
@@ -55,8 +60,10 @@ export default function Settings() {
         />
         <ListItem
           title="Sign Out"
-          onPress={() => {
-            setAppData(null);
+          onPress={async () => {
+            await resetAppData();
+            await resetAppConfig();
+            await logout();
             setNotice("Log out success");
           }}
         />

@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { Text } from "react-native-paper";
-import AppContext from "../context/AppContext";
 import { StyleSheet } from "react-native";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function Title({ children }) {
-  const { appData } = useContext(AppContext);
-  const styles = createStyle(appData.zoom);
+  const { appConfig } = useContext(AppConfigContext);
+  const styles = createStyle(appConfig.zoom);
   return (
     <Text style={styles.text} numberOfLines={1}>
       {children}
