@@ -6,7 +6,7 @@ import Timer from "../components/Timer";
 import Btn from "../components/Btn";
 import AppDataContext from "../context/AppDataContext";
 
-const minimumFocusTime = 2;
+const minimumFocusTime = process.env.EXPO_PUBLIC_MINFOCUS;
 
 export default function FocusTimer({ task, setTask, setShowTimer }) {
   const [duration, setDuration] = useState(0);
@@ -23,9 +23,9 @@ export default function FocusTimer({ task, setTask, setShowTimer }) {
 
   const stopTimer = () => {
     resetInterval();
-    if (duration < minimumFocusTime * 60) {
+    if (duration < minimumFocusTime) {
       setNotice(
-        `Focus time under ${minimumFocusTime} minutes won't be recorded.`
+        `Focus time under ${minimumFocusTime} seconds won't be recorded.`
       );
     } else {
       const record = {
