@@ -1,18 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const key = "AppData";
-
-export async function SaveData(appData) {
+export async function SaveData(key, appData) {
   await AsyncStorage.setItem(key, JSON.stringify(appData));
 }
 
-export async function LoadData() {
+export async function LoadData(key) {
   const data = JSON.parse(await AsyncStorage.getItem(key));
-  return data ? data : defaultAppData;
+  return data ? data : null;
 }
 
-export const defaultAppData = {
-  isDark: false, // true: dark, false: light
-  zoom: 1,
-  records: [], // local record state
-};
+export async function RemoveData(key) {
+  await AsyncStorage.removeItem(key);
+}

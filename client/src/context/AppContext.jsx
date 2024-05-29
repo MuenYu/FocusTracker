@@ -3,14 +3,22 @@ import { PaperProvider, MD3DarkTheme, MD3LightTheme } from "react-native-paper";
 import { LoadData, SaveData } from "../services/storage";
 import { useEffect, useState } from "react";
 
+const key = "AppData";
 const AppContext = React.createContext();
+
+const defaultAppData = {
+  isDark: false, // true: dark, false: light
+  jwt: null,
+  zoom: 1,
+  records: [], // local record state
+};
 
 export const AppProvider = ({ children }) => {
   const [appData, setAppData] = useState(null);
 
   // load records at the beginning
   useEffect(() => {
-    LoadData().then((data) => {
+    LoadData(key).then((data) => {
       setAppData(data);
     });
   }, []);
@@ -18,7 +26,9 @@ export const AppProvider = ({ children }) => {
   // every time state changes, it will update the asyncstorage
   useEffect(() => {
     if (appData) {
-      SaveData(appData);
+      SaveData(key, appData);
+    } else {
+      setAppData(defaultAppData);
     }
   }, [appData]);
 
