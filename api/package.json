@@ -1,0 +1,24 @@
+{
+    "name": "api",
+    "type": "module",
+    "version": "0.1.0",
+    "description": "The general stateless API for the whole project.",
+    "main": "app.js",
+    "scripts": {
+        "dev": "nodemon --env-file=.env.local app.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "drizzle-kit": "^0.20.14",
+        "nodemon": "^3.1.0"
+    },
+    "dependencies": {
+        "drizzle-orm": "^0.30.8",
+        "express": "^4.19.2",
+        "js-sha256": "^0.11.0",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.9.4"
+    }
+}
