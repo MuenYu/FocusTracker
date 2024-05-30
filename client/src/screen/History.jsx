@@ -13,9 +13,14 @@ import Prompt from "../components/Prompt";
 import ListItem from "../components/ListItem";
 import { Timestamp2Date } from "../util/format";
 import EditModal from "../components/EditModal";
+import { getRecordAPI, syncRecordAPI } from "../api/record";
+import AuthContext from "../context/AuthContext";
+import PopupContext from "../context/PopupContext";
 
 export default function History() {
   const theme = useTheme();
+  const { token } = useContext(AuthContext);
+  const { setNotice } = useContext(PopupContext);
   const { appData, updateAppData } = useContext(AppDataContext);
   const [refreshing, setRefreshing] = useState(false);
   const [keyword, setKeyword] = useState("");
@@ -23,9 +28,21 @@ export default function History() {
 
   const onRefresh = () => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1000);
+    const records = appData.records;
+    syncRecordAPI(token, records)
+      .then(() => {
+        getRecordAPI(token).then(async (data) => {
+          appData.records = data;
+          await updateAppData({ ...appData });
+          setNotice("Your focus history is up to date");
+        });
+      })
+      .catch((msg) => {
+        setNotice(`${msg}\nYour local history still remains`);
+      })
+      .then(() => {
+        setRefreshing(false);
+      });
   };
 
   const filteredRecords = appData.records.filter((record) =>

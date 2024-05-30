@@ -11,3 +11,16 @@ export async function editRecordAPI(token, record) {
 export async function deleteRecordAPI(token, record) {
   return await sendReq("/record", "delete", token, record);
 }
+
+export async function getRecordAPI(token) {
+  return await sendReq("/record", "get", token);
+}
+
+export async function syncRecordAPI(token, records) {
+  return await sendReq(
+    "/record/sync",
+    "post",
+    token,
+    records.filter((x) => x.sync === false)
+  );
+}
