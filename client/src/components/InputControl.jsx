@@ -18,7 +18,7 @@ export default function InputControl({
     <TextInput
       label={label}
       placeholder={placeholder}
-      value={value}
+      defaultValue={value}
       onChangeText={onChangeText}
       style={styles.input}
       contentStyle={styles.content}
