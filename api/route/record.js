@@ -35,7 +35,6 @@ record.post("/", CheckCredential, async (req, res) => {
     const userId = req.userId;
     const record = req.body;
     record.owner = userId;
-    record.timestamp = new Date(record.timestamp);
     await getDB().insert(records).values(record);
     res.json("Upload success");
   } catch (error) {

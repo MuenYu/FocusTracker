@@ -1,7 +1,7 @@
 import {
   int,
   mysqlTable,
-  timestamp,
+  bigint,
   varchar,
   serial,
 } from "drizzle-orm/mysql-core";
@@ -16,6 +16,6 @@ export const records = mysqlTable("records", {
   id: serial("id").primaryKey().autoincrement(),
   task: varchar("task", { length: 255 }).notNull(),
   duration: int("duration").notNull(),
-  timestamp: timestamp("timestamp").notNull(),
+  timestamp: bigint("timestamp", { mode: "number", unsigned: true }).notNull(),
   owner: int("owner").references(() => users.id),
 });

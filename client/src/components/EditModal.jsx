@@ -5,44 +5,54 @@ import InputControl from "./InputControl";
 import PopupContext from "../context/PopupContext";
 import Btn from "./Btn";
 import AppDataContext from "../context/AppDataContext";
+import AuthContext from "../context/AuthContext";
+import { deleteRecordAPI, editRecordAPI } from "../api/record";
 
 export default function EditModal({ editItem, setEditItem }) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
+  const { token } = useContext(AuthContext);
   const { appData, updateAppData } = useContext(AppDataContext);
   const { setNotice } = useContext(PopupContext);
   const [task, setTask] = useState(editItem.task);
 
-  const onEdit = async () => {
-    if (task.trim() === editItem.task) {
-      setEditItem(null);
-      return;
-    }
-    const records = appData.records;
-    const index = records.indexOf(editItem);
-    records[index] = {
-      ...records[index],
-      task: task.trim(),
-    };
-    await updateAppData({
-      ...appData,
-      records: records,
-    });
-    setNotice("Update success!");
-    setEditItem(null);
+  const onEdit = () => {
+    editItem.task = task.trim();
+    editRecordAPI(token, editItem)
+      .then(() => {
+        setNotice("Update success");
+      })
+      .catch((msg) => {
+        editItem.sync = false;
+        setNotice(`${msg}\nUpdate success locally`);
+      })
+      .then(async () => {
+        await updateAppData({
+          ...appData,
+        });
+        setEditItem(null);
+      });
   };
 
   const onDelete = async () => {
     const records = appData.records;
-    const index = records.indexOf(editItem);
-    records.splice(index, 1);
-    await updateAppData({
-      ...appData,
-      records: records,
-    });
-    setNotice("Delete success!");
-    setEditItem(null);
+    deleteRecordAPI(token, editItem)
+      .then(() => {
+        setNotice("Delete success!");
+      })
+      .catch((msg) => {
+        setNotice(`${msg}\nDelete success locally`);
+      })
+      .then(async () => {
+        const index = records.indexOf(editItem);
+        records.splice(index, 1);
+        await updateAppData({
+          ...appData,
+          records: records,
+        });
+        setEditItem(null);
+      });
   };
 
   return (
