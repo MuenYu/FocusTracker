@@ -5,10 +5,13 @@ import Title from "../components/Title";
 import Timer from "../components/Timer";
 import Btn from "../components/Btn";
 import AppDataContext from "../context/AppDataContext";
+import { uploadRecordAPI } from "../api/record";
+import AuthContext from "../context/AuthContext";
 
 const minimumFocusTime = process.env.EXPO_PUBLIC_MINFOCUS;
 
 export default function FocusTimer({ task, setTask, setShowTimer }) {
+  const { token } = useContext(AuthContext);
   const [duration, setDuration] = useState(0);
   const { setNotice } = useContext(PopupContext);
   const { appData, updateAppData } = useContext(AppDataContext);
@@ -22,7 +25,6 @@ export default function FocusTimer({ task, setTask, setShowTimer }) {
   };
 
   const stopTimer = () => {
-    resetInterval();
     if (duration < minimumFocusTime) {
       setNotice(
         `Focus time under ${minimumFocusTime} seconds won't be recorded.`
@@ -34,12 +36,20 @@ export default function FocusTimer({ task, setTask, setShowTimer }) {
         timestamp: Date.now(),
         sync: false,
       };
-      // TODO: save the data to remote
-      updateAppData({
-        ...appData,
-        records: [record, ...appData.records],
-      });
-      setNotice("Your record has been saved.");
+      uploadRecordAPI(token, record)
+        .then(() => {
+          record.sync = true;
+          setNotice("Your record has been saved");
+        })
+        .catch((msg) => {
+          setNotice(`${msg}\nYour record has been saved locally`);
+        })
+        .then(() => {
+          updateAppData({
+            ...appData,
+            records: [record, ...appData.records],
+          });
+        });
     }
     setShowTimer(false);
     setTask("");

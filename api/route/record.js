@@ -28,13 +28,14 @@ record.get("/", CheckCredential, async (req, res) => {
 });
 
 /**
- * add records to server
+ * add record to server
  */
 record.post("/", CheckCredential, async (req, res) => {
   try {
     const userId = req.userId;
     const record = req.body;
     record.owner = userId;
+    record.timestamp = new Date(record.timestamp);
     await getDB().insert(records).values(record);
     res.json("Upload success");
   } catch (error) {
@@ -108,7 +109,7 @@ record.post("/sync", CheckCredential, async (req, res) => {
         }
       }
     });
-    res.json('success')
+    res.json("success");
   } catch (error) {
     res.status(error.code ?? 500).json(error.message);
   }

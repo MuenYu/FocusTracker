@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoadData, RemoveData, SaveData } from "../services/storage";
 
 const AuthContext = React.createContext();
