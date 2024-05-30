@@ -19,6 +19,10 @@
         "express": "^4.19.2",
         "js-sha256": "^0.11.0",
         "jsonwebtoken": "^9.0.2",
-        "mysql2": "^3.9.4"
+        "morgan": "^1.10.0",
+        "mysql2": "^3.9.4",
+        "swagger-autogen": "^2.23.7",
+        "swagger-ui-express": "^5.0.0",
+        "yamljs": "^0.3.0"
     }
 }

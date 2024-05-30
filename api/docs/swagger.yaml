@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: Focus Tracker API
+  description: |
+    This is the API for the app focus tracker.
+    It supports user login/registration and CRUD operations of focus records
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+paths:
+  /user/login:
+    post:
+      summary: user login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: user login success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        "400":
+          description: username or password are not provided
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Invalid request body
+        "401":
+          description: the user does not exist or wrong password
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Wrong username or password
+
+  /user/register:
+    post:
+      summary: user registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: user register success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        "400":
+          description: username or password are not provided
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Invalid request body
+        "401":
+          description: the username has been taken
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the username has been taken
+

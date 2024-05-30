@@ -4,27 +4,31 @@ import { eq } from "drizzle-orm";
 import { users } from "../db/schema.js";
 import { sha256 } from "js-sha256";
 import { GenJWT } from "../util/jwt.js";
+import CustomError from "./err.js";
 
 const user = express.Router();
 
 user.post("/login", paramCheck, async (req, res) => {
-  const { username, password } = req.body;
-  let user = await getDB().query.users.findFirst({
-    where: eq(users.username, username),
-  });
-  if (user && user.password === sha256(password)) {
+  try {
+    const { username, password } = req.body;
+    let user = await getDB().query.users.findFirst({
+      where: eq(users.username, username),
+    });
+    if (!user || user.password !== sha256(password))
+      throw new CustomError(401, "Wrong username or password");
     res.json(GenJWT({ id: user.id }));
-    return;
+  } catch (error) {
+    res.status(error.code ?? 500).json(error.message);
   }
-  res.status(401).json("Wrong username or password");
 });
 
 user.post("/register", paramCheck, async (req, res) => {
-  const { username, password } = req.body;
-  let user = await getDB().query.users.findFirst({
-    where: eq(users.username, username),
-  });
-  if (!user) {
+  try {
+    const { username, password } = req.body;
+    let user = await getDB().query.users.findFirst({
+      where: eq(users.username, username),
+    });
+    if (user) throw new CustomError(401, "The username has been taken");
     const result = await getDB()
       .insert(users)
       .values({
@@ -33,9 +37,9 @@ user.post("/register", paramCheck, async (req, res) => {
       });
     const newId = result[0].insertId;
     res.json(GenJWT({ id: newId }));
-    return;
+  } catch (error) {
+    res.status(error.code ?? 500).json(error.message);
   }
-  res.status(401).json("The username has been taken");
 });
 
 function paramCheck(req, res, next) {
