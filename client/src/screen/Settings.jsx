@@ -8,13 +8,10 @@ import { useNavigation } from "@react-navigation/native";
 import PopupContext from "../context/PopupContext";
 import AuthContext from "../context/AuthContext";
 import AppConfigContext from "../context/AppConfigContext";
-import AppDataContext from "../context/AppDataContext";
 
 export default function Settings() {
   const { logout } = useContext(AuthContext);
-  const { appConfig, updateAppConfig, resetAppConfig } =
-    useContext(AppConfigContext);
-  const { resetAppData } = useContext(AppDataContext);
+  const { appConfig, updateAppConfig } = useContext(AppConfigContext);
   const { setNotice } = useContext(PopupContext);
   const theme = useTheme();
   const navigation = useNavigation();
@@ -61,8 +58,6 @@ export default function Settings() {
         <ListItem
           title="Sign Out"
           onPress={async () => {
-            await resetAppData();
-            await resetAppConfig();
             await logout();
             setNotice("Log out success");
           }}

@@ -18,7 +18,7 @@ export const AppConfigProvider = ({ children }) => {
 
   const loadAppConfig = async () => {
     const config = await LoadData(key);
-    setAppConfig(config ?? defaultConfig);
+    setAppConfig(config ?? {...defaultConfig});
   };
 
   const updateAppConfig = async (config) => {
@@ -28,7 +28,7 @@ export const AppConfigProvider = ({ children }) => {
 
   const resetAppConfig = async () => {
     await RemoveData(key);
-    setAppConfig(defaultConfig);
+    setAppConfig({...defaultConfig});
   };
 
   if (appConfig)

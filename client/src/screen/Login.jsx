@@ -1,13 +1,15 @@
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import InputControl from "../components/InputControl";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import Title from "../components/Title";
 import Btn from "../components/Btn";
 import PopupContext from "../context/PopupContext";
 import { loginAPI, registerAPI } from "../api/user";
 import AuthContext from "../context/AuthContext";
+import AppDataContext from "../context/AppDataContext";
+import AppConfigContext from "../context/AppConfigContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -16,7 +18,10 @@ export default function Login() {
   const { setNotice } = useContext(PopupContext);
   const theme = useTheme();
   const styles = createStyles(theme);
-  
+
+  const { resetAppData } = useContext(AppDataContext);
+  const { resetAppConfig } = useContext(AppConfigContext);
+
   const onPress = (mode) => {
     const action = mode ? loginAPI : registerAPI;
     action({ username, password })
@@ -28,6 +33,11 @@ export default function Login() {
         setNotice(msg);
       });
   };
+
+  useEffect(() => {
+    resetAppData();
+    resetAppConfig();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

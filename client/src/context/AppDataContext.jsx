@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const AppDataContext = React.createContext();
 const key = "data";
 const defaultAppData = {
-  records: [],
+  records: new Array(),
 };
 
 export const AppDataProvider = ({ children }) => {
@@ -18,7 +18,7 @@ export const AppDataProvider = ({ children }) => {
 
   const loadAppData = async () => {
     const data = await LoadData(key);
-    setAppData(data ?? defaultAppData);
+    setAppData(data ?? {...defaultAppData});
   };
 
   const updateAppData = async (data) => {
@@ -28,7 +28,7 @@ export const AppDataProvider = ({ children }) => {
 
   const resetAppData = async () => {
     await RemoveData(key);
-    setAppData(defaultAppData);
+    setAppData({...defaultAppData});
   };
 
   if (appData)
