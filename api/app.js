@@ -4,11 +4,10 @@ import user from "./route/user.js";
 import record from "./route/record.js";
 import { initDB } from "./db/db.js";
 import swaggerUI from "swagger-ui-express";
-import YAML from "yamljs";
+import swaggerDoc from "./docs/swagger.json" assert { type: "json" };
 
 await initDB();
 const app = express();
-const swaggerDoc = YAML.load("./docs/swagger.yaml");
 
 // json support
 app.use(express.json());

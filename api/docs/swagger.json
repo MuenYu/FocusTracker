@@ -1,0 +1,432 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Focus Tracker API",
+    "description": "This is the API for the app focus tracker. It supports user login/registration and CRUD operations of focus records",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/license/mit"
+    },
+    "tags": [
+      {
+        "name": "User",
+        "description": "Operations related to user"
+      },
+      {
+        "name": "Record",
+        "description": "Operations related to focus record"
+      }
+    ]
+  },
+  "paths": {
+    "/user/login": {
+      "post": {
+        "summary": "user login api",
+        "description": "validate the username and password, return jwt token if they are valid",
+        "tags": ["User"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "login success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the jwt token",
+                  "examples": [
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "the username or password is null or empty string",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the error message",
+                  "examples": ["Invalid request body"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "wrong username or password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the error message",
+                  "examples": ["Wrong username or password"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "summary": "user register api",
+        "description": "check if the username exist, return jwt token if the username is not taken",
+        "tags": ["User"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "register success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the jwt token",
+                  "examples": [
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "the username or password is null or empty string",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the error message",
+                  "examples": ["Invalid request body"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "the username has been taken",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the error message",
+                  "examples": ["The username has been taken"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/record": {
+      "get": {
+        "summary": "fetch all focus records of the specific user",
+        "description": "validate the jwt token, and return all focus records of that user if the token is valid",
+        "tags": ["Record"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return all focus records for the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "description": "the focus records list",
+                  "properties": {
+                    "items": {
+                      "$ref": "#/components/schemas/FocusRecord"
+                    }
+                  },
+                  "examples": [
+                    [
+                      {
+                        "task": "Learn application development",
+                        "duration": 3000,
+                        "timestamp": 1717161197656,
+                        "sync": true
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "the jwt token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthroized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "upload a new focus record",
+        "description": "validate the jwt token, and upload a new focus record of that user if the token is valid",
+        "tags": ["Record"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusRecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "upload a focus record successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the success message",
+                  "examples": ["Update success"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "the jwt token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthroized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "update a foucs record",
+        "description": "validate the jwt token, and update the specific focus record if the token is valid",
+        "tags": ["Record"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusRecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "update a focus record successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the success message",
+                  "examples": ["Upload success"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "the jwt token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthroized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete a foucs record",
+        "description": "validate the jwt token, and delete the specific focus record if the token is valid",
+        "tags": ["Record"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FocusRecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete a focus record successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the success message",
+                  "examples": ["Delete success"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "the jwt token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthroized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/record/sync": {
+      "post": {
+        "summary": "sync unsyncronized record of device",
+        "description": "validate the jwt token, and upload or update all local focus records whose sync status is false",
+        "tags": ["Record"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "the focus records list",
+                "properties": {
+                  "items": {
+                    "$ref": "#/components/schemas/FocusRecord"
+                  }
+                },
+                "examples": [
+                  [
+                    {
+                      "task": "Learn application development",
+                      "duration": 3000,
+                      "timestamp": 1717161197656,
+                      "sync": true
+                    }
+                  ]
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "upload or update unsync record successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "the success message",
+                  "examples": ["Success"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "the jwt token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthroized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "UserReq": {
+        "type": "Object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "the username of user account"
+          },
+          "password": {
+            "type": "string",
+            "description": "the password of user account"
+          }
+        }
+      },
+      "FocusRecord": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "the task name of the record"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "the focus duration in seconds"
+          },
+          "timestamp": {
+            "type": "long",
+            "description": "the timestamp when user stop the focus stopwatch"
+          },
+          "sync": {
+            "type": "bool",
+            "description": "the sync status of the record"
+          }
+        }
+      },
+      "Unauthroized": {
+        "type": "string",
+        "description": "the error message",
+        "examples": ["No authentication"]
+      }
+    }
+  }
+}

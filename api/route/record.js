@@ -108,7 +108,7 @@ record.post("/sync", CheckCredential, async (req, res) => {
         }
       }
     });
-    res.json("success");
+    res.json("Success");
   } catch (error) {
     res.status(error.code ?? 500).json(error.message);
   }

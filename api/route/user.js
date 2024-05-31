@@ -44,7 +44,12 @@ user.post("/register", paramCheck, async (req, res) => {
 
 function paramCheck(req, res, next) {
   const { username, password } = req.body;
-  if (!username || !password) {
+  if (
+    !username ||
+    !password ||
+    username.length === 0 ||
+    password.length === 0
+  ) {
     res.status(400).json("Invalid request body");
     return;
   }
