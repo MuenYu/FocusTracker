@@ -137,11 +137,8 @@ function CheckCredential(req, res, next) {
     if (!authHeader) throw new CustomError(401, "No authentication token");
     const token = authHeader.split(" ")[1];
     const data = DecodeJWT(token);
-    // when the signature of the token is not correct
-    if (!data) throw new CustomError(401, "Invalid token");
-    // when the token is expired
-    if (data.exp * 1000 < Date.now())
-      throw new CustomError(401, "Expired token");
+    // when the signature of the token is not correct or expired
+    if (data instanceof Error) throw new CustomError(401, `Invalid token: ${data.message}`);
     req.userId = data.id;
     next();
   } catch (error) {

@@ -3,11 +3,13 @@
  */
 import jwt from "jsonwebtoken";
 
+const secret = process.env.TOKEN_SECRET;
+const expiration = process.env.TOKEN_EXPIRATION
+
 const options = {
-  expiresIn: "30d", // Token will expire in 30 days
+  expiresIn: expiration, // Token will expire in 30 days
 };
 
-const secret = process.env.SECRET;
 
 /**
  * generate jwt token based on the configured secret and data
@@ -27,7 +29,6 @@ export function DecodeJWT(token) {
   try {
     return jwt.verify(token, secret);
   } catch (error) {
-    console.error("invalid token");
-    return null;
+    return error;
   }
 }
