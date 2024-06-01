@@ -17,14 +17,15 @@ export default function About() {
       <Header title="About" back={true} />
       <ScrollView contentContainerStyle={styles.subContainer}>
         <Logo />
-        <Title>Focus Tracker</Title>
+        <Title>About Focus Tracker</Title>
         <Text style={styles.content}>
           Focus Tracker is an Application with cloud sync to record your focus
           time and encourage you to keep focus status.
         </Text>
+        <Title>Dependency List</Title>
         <Text style={styles.content}>
           The birth of this project is inseparable from the help of the
-          following libraries:
+          following libraries (only direct dependencies are listed):
         </Text>
         {Object.entries(licenses).map(([name, item], index) => (
           <Text
