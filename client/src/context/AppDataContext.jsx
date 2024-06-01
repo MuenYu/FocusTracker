@@ -1,3 +1,8 @@
+/**
+ * the global user data in app
+ * which are persistent in asyncstorage
+ */
+
 import React from "react";
 import { LoadData, RemoveData, SaveData } from "../services/storage";
 import { useEffect, useState } from "react";

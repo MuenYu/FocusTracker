@@ -1,3 +1,8 @@
+/**
+ * the bottom navigation of the app
+ * which is also the main navigation of the app
+ */
+
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";

@@ -1,6 +1,11 @@
+/**
+ * the general input text box in the app
+ * supporting app font zoom in app config
+ */
+
 import { TextInput } from "react-native-paper";
 import { StyleSheet } from "react-native";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import AppConfigContext from "../context/AppConfigContext";
 
 export default function InputControl({

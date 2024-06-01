@@ -1,3 +1,8 @@
+/**
+ * the timer component
+ * supporting font zoom in app config
+ */
+
 import { useContext } from "react";
 import { Text } from "react-native-paper";
 import { StyleSheet } from "react-native";

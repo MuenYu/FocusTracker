@@ -1,3 +1,7 @@
+/**
+ * the modal for focus record update, 
+ */
+
 import { Modal, Portal, useTheme } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { useContext, useState } from "react";

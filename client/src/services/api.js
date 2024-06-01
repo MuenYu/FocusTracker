@@ -1,3 +1,8 @@
+/**
+ * a util to simplify api request
+ * including unified api base url, token
+ */
+
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 

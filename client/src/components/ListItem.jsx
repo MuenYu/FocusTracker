@@ -1,3 +1,8 @@
+/**
+ * the list item components used in list (e.g., flatlist)
+ * supporting the font zoom in app config
+ */
+
 import { useContext } from "react";
 import { List } from "react-native-paper";
 import { StyleSheet } from "react-native";

@@ -1,7 +1,15 @@
+/**
+ * generate DB util file
+ * configure the database connection pool and maintain the global db connection object
+ */
+
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
 import * as schema from "./schema.js";
 
+/**
+ * the database conenction configuration, read from env file
+ */
 const poolConnection = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -9,8 +17,10 @@ const poolConnection = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
+// the global database object
 let db = null;
 
+// inital the database connection, keep the db object using singleton design pattern
 async function initDB() {
   if (!db) {
     try {
@@ -28,6 +38,7 @@ async function initDB() {
   }
 }
 
+// expose the db object, using singleton design pattern
 function getDB() {
   if (!db) {
     throw new Error("Database not initialized. Call initDb first.");

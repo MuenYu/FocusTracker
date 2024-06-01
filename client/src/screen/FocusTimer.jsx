@@ -1,3 +1,7 @@
+/**
+ * the timer page for current task
+ */
+
 import { ScrollView, StyleSheet } from "react-native";
 import { useState, useContext, useRef } from "react";
 import PopupContext from "../context/PopupContext";

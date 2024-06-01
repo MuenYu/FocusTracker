@@ -1,3 +1,8 @@
+/**
+ * a white screen to show prompt to user
+ * supporting font zoom in app config
+ */
+
 import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";

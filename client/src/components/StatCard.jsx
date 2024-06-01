@@ -1,3 +1,9 @@
+/**
+ * the card component used in statistics page
+ * used to show content and number matrics
+ * supporting font zoom in app config
+ */
+
 import { Card, Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useContext } from "react";

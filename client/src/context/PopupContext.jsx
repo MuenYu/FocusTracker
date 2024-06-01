@@ -1,4 +1,8 @@
-import React, { useState, useContext } from "react";
+/**
+ * the popup context, push the global notification using snackbar
+ */
+
+import React, { useState } from "react";
 import Popup from "../components/Popup";
 
 const PopupContext = React.createContext();

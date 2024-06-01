@@ -1,3 +1,8 @@
+/**
+ * the global authentication info context
+ * which is persistent in secure storage
+ */
+
 import React, { useEffect, useState } from "react";
 import { LoadData, RemoveData, SaveData } from "../services/storage";
 

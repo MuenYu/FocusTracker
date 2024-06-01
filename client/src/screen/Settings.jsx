@@ -1,3 +1,8 @@
+/**
+ * the setting page
+ * including app setting and user log out
+ */
+
 import { useContext } from "react";
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { useTheme, Switch } from "react-native-paper";

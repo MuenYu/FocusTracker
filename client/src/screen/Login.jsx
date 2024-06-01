@@ -1,3 +1,7 @@
+/**
+ * the login and register page
+ */
+
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import InputControl from "../components/InputControl";

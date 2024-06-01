@@ -1,4 +1,7 @@
-import { Text } from "react-native-paper";
+/**
+ * the tab to check task ranking
+ */
+
 import ListItem from "../components/ListItem";
 import { ranking } from "../services/statistics";
 import { FlatList, StyleSheet } from "react-native";

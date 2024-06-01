@@ -1,3 +1,7 @@
+/**
+ * the page showing the overall statistics info
+ */
+
 import {
   totalFocusTime,
   longestFocus,

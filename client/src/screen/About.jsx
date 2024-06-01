@@ -1,3 +1,8 @@
+/**
+ * the about page
+ * including app introduction and all direct dependencies
+ */
+
 import { SafeAreaView, ScrollView, Linking } from "react-native";
 import Header from "../components/Header";
 import { StyleSheet } from "react-native";

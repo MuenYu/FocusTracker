@@ -1,3 +1,7 @@
+/**
+ * the page for task input
+ */
+
 import Title from "../components/Title";
 import { ScrollView, StyleSheet } from "react-native";
 import InputControl from "../components/InputControl";

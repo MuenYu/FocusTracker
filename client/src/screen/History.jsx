@@ -1,3 +1,8 @@
+/**
+ * the page to check all focus records of the user
+ * supporting record sync
+ */
+
 import { useState, useContext } from "react";
 import {
   SafeAreaView,

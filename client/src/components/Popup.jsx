@@ -1,3 +1,8 @@
+/**
+ * the global popup components, used to show the message after operations
+ * this component does not support font zoom in app config
+ */
+
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Snackbar, Portal } from "react-native-paper";

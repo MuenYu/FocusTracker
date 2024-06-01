@@ -1,3 +1,8 @@
+/**
+ * the general search app in the app
+ * supporting font zoom in app config including user input
+ */
+
 import { Searchbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useContext } from "react";

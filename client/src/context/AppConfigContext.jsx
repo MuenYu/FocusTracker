@@ -1,3 +1,8 @@
+/**
+ * the global app configuration context
+ * configuration are persistent in asyncstorage
+ */
+
 import React, { useEffect, useState } from "react";
 import { LoadData, RemoveData, SaveData } from "../services/storage";
 import { PaperProvider, MD3DarkTheme, MD3LightTheme } from "react-native-paper";

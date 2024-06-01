@@ -1,6 +1,12 @@
+/**
+ * the header component for each page
+ * used to show the title of the page
+ * supporting the font zoom in app config
+ */
+
 import { useContext } from "react";
 import { Appbar } from "react-native-paper";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AppConfigContext from "../context/AppConfigContext";
 

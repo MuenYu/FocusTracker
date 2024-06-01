@@ -1,7 +1,10 @@
+/**
+ * the button components, supporting font size zoom in app config
+ */
+
 import { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
-import AppContext from "../context/AppDataContext";
 import AppConfigContext from "../context/AppConfigContext";
 
 export default function Btn({ icon, label, disabled, onPress }) {

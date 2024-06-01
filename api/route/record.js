@@ -1,3 +1,8 @@
+/**
+ * record router
+ * all API endpoints about focus history operations
+ */
+
 import express from "express";
 import { DecodeJWT } from "../util/jwt.js";
 import CustomError from "./err.js";
@@ -83,6 +88,11 @@ record.delete("/", CheckCredential, async (req, res) => {
   }
 });
 
+/**
+ * upload all unsync records on local device
+ * if the record does not exist in database, then create it
+ * if the record does exists in database, then update it
+ */
 record.post("/sync", CheckCredential, async (req, res) => {
   try {
     const userId = req.userId;
@@ -114,13 +124,22 @@ record.post("/sync", CheckCredential, async (req, res) => {
   }
 });
 
+/**
+ * validate if the jwt token is valid
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 function CheckCredential(req, res, next) {
   try {
     const authHeader = req.headers.authorization;
+    // when no jwt token provided
     if (!authHeader) throw new CustomError(401, "No authentication token");
     const token = authHeader.split(" ")[1];
     const data = DecodeJWT(token);
+    // when the signature of the token is not correct
     if (!data) throw new CustomError(401, "Invalid token");
+    // when the token is expired
     if (data.exp * 1000 < Date.now())
       throw new CustomError(401, "Expired token");
     req.userId = data.id;

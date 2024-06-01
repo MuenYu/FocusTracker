@@ -1,3 +1,7 @@
+/**
+ * the statistics page, including two sub statistics tabs
+ */
+
 import { useContext } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import Prompt from "../components/Prompt";

@@ -1,3 +1,7 @@
+/**
+ * The app logo
+ */
+
 import { StyleSheet, Image } from "react-native";
 import Icon from "../../assets/icon.png";
 

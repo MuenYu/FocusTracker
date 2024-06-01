@@ -1,5 +1,10 @@
-import { useContext, useState } from "react";
-import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
+/**
+ * the focus page
+ * including the task input bar and focus timer
+ */
+
+import { useState } from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 import FocusInput from "./FocusInput";
 import FocusTimer from "./FocusTimer";
 

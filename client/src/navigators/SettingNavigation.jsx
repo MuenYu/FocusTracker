@@ -1,3 +1,7 @@
+/**
+ * the navigation for setting page only
+ */
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Settings from "../screen/Settings";
 import About from "../screen/About";

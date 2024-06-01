@@ -1,3 +1,7 @@
+/**
+ * all statistics business logic
+ */
+
 export function totalFocusTime(records) {
   return records.reduce((sum, item) => sum + item.duration, 0);
 }
