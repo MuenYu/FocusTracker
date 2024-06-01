@@ -14,7 +14,7 @@ import { useSendReq } from "../services/api";
 const minimumFocusTime = process.env.EXPO_PUBLIC_MINFOCUS;
 
 export default function FocusTimer({ task, setTask, setShowTimer }) {
-  const [duration, setDuration] = useState(600);
+  const [duration, setDuration] = useState(0);
   const { setNotice } = useContext(PopupContext);
   const { appData, updateAppData } = useContext(AppDataContext);
   const intervalRef = useRef(null);
