@@ -23,7 +23,7 @@ export const AppDataProvider = ({ children }) => {
 
   const loadAppData = async () => {
     const data = await LoadData(key);
-    setAppData(data ?? {...defaultAppData});
+    setAppData(data ?? { ...defaultAppData });
   };
 
   const updateAppData = async (data) => {
@@ -33,15 +33,14 @@ export const AppDataProvider = ({ children }) => {
 
   const resetAppData = async () => {
     await RemoveData(key);
-    setAppData({...defaultAppData});
+    setAppData({ ...defaultAppData });
   };
 
-  if (appData)
-    return (
-      <AppDataContext.Provider value={{ appData, updateAppData, resetAppData }}>
-        {children}
-      </AppDataContext.Provider>
-    );
+  return (
+    <AppDataContext.Provider value={{ appData, updateAppData, resetAppData }}>
+      {children}
+    </AppDataContext.Provider>
+  );
 };
 
 export default AppDataContext;

@@ -28,7 +28,8 @@
     "react-native-paper-tabs": "^0.10.4",
     "react-native-screens": "3.31.1",
     "react-native-vector-icons": "^10.1.0",
-    "undefined": "@expo/vector-icons/Ionicons"
+    "undefined": "@expo/vector-icons/Ionicons",
+    "expo-splash-screen": "~0.27.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
