@@ -121,8 +121,10 @@ cp .env.template .env.local
 npm run dev # run the api services
 ```
 
+The server will run `swagger-doc` automatically, check detail in [swagger.json](./api/docs/swagger.json)
+
 #### Running the app
-Once the backend api is running, the only configuration you need to set for client is the backend api path: change `EXPO_PUBLIC_API` to your api path.
+Once the backend api is running, you also need to create your own `.env.local` file following the `./client/.env.template`.
 
 ```bash
 cd ../client # make sure you are in the client folder
