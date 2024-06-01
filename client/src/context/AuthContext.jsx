@@ -12,17 +12,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const loadToken = async () => {
-    const token = await LoadData(key);
+    const token = await LoadData(key, true);
     setToken(token);
   };
 
   const login = async (token) => {
-    await SaveData(key, token);
+    await SaveData(key, token, true);
     setToken(token);
   };
 
   const logout = async () => {
-    await RemoveData(key);
+    await RemoveData(key, true);
     setToken(null);
   };
 
