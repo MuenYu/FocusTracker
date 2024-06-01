@@ -1,55 +1,33 @@
 import { useContext } from "react";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import {
-  totalFocusTime,
-  longestFocus,
-  shortestFocus,
-  avgFocusTime,
-} from "../services/statistics";
+import { SafeAreaView, StyleSheet } from "react-native";
 import Prompt from "../components/Prompt";
-import StatCard from "../components/StatCard";
 import Header from "../components/Header";
 import AppDataContext from "../context/AppDataContext";
+import AppConfigContext from "../context/AppConfigContext";
+import { TabScreen, Tabs, TabsProvider } from "react-native-paper-tabs";
+import OverallStats from "./OverallStats";
+import TaskStats from "./TaskStats";
 
 export default function Statistics() {
   const { appData } = useContext(AppDataContext);
+  const { appConfig } = useContext(AppConfigContext);
+
+  const styles = createStyles(appConfig.zoom);
 
   return (
     <SafeAreaView style={styles.container}>
       <Header title="My Focus Statistics" />
       {appData.records.length > 0 ? (
-        <ScrollView contentContainerStyle={styles.main}>
-          <StatCard
-            prefix="Your total focus time"
-            counter={Math.floor(totalFocusTime(appData.records) / 3600)}
-            unit="hour"
-            units="hours"
-          />
-          <StatCard
-            prefix="Your Focus Counter"
-            counter={appData.records.length}
-            unit="time"
-            units="times"
-          />
-          <StatCard
-            prefix="Your Longest Focus Time"
-            counter={Math.floor(longestFocus(appData.records) / 60)}
-            unit="minute"
-            units="minutes"
-          />
-          <StatCard
-            prefix="Your Shortest Focus Time"
-            counter={Math.floor(shortestFocus(appData.records) / 60)}
-            unit="minute"
-            units="minutes"
-          />
-          <StatCard
-            prefix="Your Average Focus Time"
-            counter={Math.floor(avgFocusTime(appData.records) / 60)}
-            unit="minute"
-            units="minutes"
-          />
-        </ScrollView>
+        <TabsProvider>
+          <Tabs tabLabelStyle={styles.tabs}>
+            <TabScreen label="Overall">
+              <OverallStats records={appData.records} />
+            </TabScreen>
+            <TabScreen label="By Tasks">
+              <TaskStats records={appData.records} />
+            </TabScreen>
+          </Tabs>
+        </TabsProvider>
       ) : (
         <Prompt prompt={"No statistics info yet"} />
       )}
@@ -57,12 +35,12 @@ export default function Statistics() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  main: {
-    gap: 5,
-    paddingVertical: 5,
-  },
-});
+const createStyles = (zoom) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    tabs: {
+      fontSize: 14 * zoom,
+    },
+  });
