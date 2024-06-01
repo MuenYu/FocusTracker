@@ -5,17 +5,16 @@ import Title from "../components/Title";
 import Timer from "../components/Timer";
 import Btn from "../components/Btn";
 import AppDataContext from "../context/AppDataContext";
-import { uploadRecordAPI } from "../api/record";
-import AuthContext from "../context/AuthContext";
+import { useSendReq } from "../services/api";
 
 const minimumFocusTime = process.env.EXPO_PUBLIC_MINFOCUS;
 
 export default function FocusTimer({ task, setTask, setShowTimer }) {
-  const { token } = useContext(AuthContext);
   const [duration, setDuration] = useState(0);
   const { setNotice } = useContext(PopupContext);
   const { appData, updateAppData } = useContext(AppDataContext);
   const intervalRef = useRef(null);
+  const sendReq = useSendReq();
 
   const resetInterval = () => {
     if (intervalRef.current) {
@@ -36,7 +35,7 @@ export default function FocusTimer({ task, setTask, setShowTimer }) {
         timestamp: Date.now(),
         sync: false,
       };
-      uploadRecordAPI(token, record)
+      sendReq("/record", "post", true, record)
         .then(() => {
           record.sync = true;
           setNotice("Your record has been saved");

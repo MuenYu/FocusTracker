@@ -13,32 +13,36 @@ import Prompt from "../components/Prompt";
 import ListItem from "../components/ListItem";
 import { Timestamp2Date } from "../util/format";
 import EditModal from "../components/EditModal";
-import { getRecordAPI, syncRecordAPI } from "../api/record";
-import AuthContext from "../context/AuthContext";
 import PopupContext from "../context/PopupContext";
+import { useSendReq } from "../services/api";
 
 export default function History() {
   const theme = useTheme();
-  const { token } = useContext(AuthContext);
   const { setNotice } = useContext(PopupContext);
   const { appData, updateAppData } = useContext(AppDataContext);
   const [refreshing, setRefreshing] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [editItem, setEditItem] = useState(null);
+  const sendReq = useSendReq();
 
   const onRefresh = () => {
     setRefreshing(true);
     const records = appData.records;
-    syncRecordAPI(token, records)
+    sendReq(
+      "/record/sync",
+      "post",
+      true,
+      records.filter((x) => x.sync === false)
+    )
       .then(() => {
-        getRecordAPI(token).then(async (data) => {
+        sendReq("/record", "get", true).then(async (data) => {
           appData.records = data;
           await updateAppData({ ...appData });
           setNotice("Your focus history is up to date");
         });
       })
       .catch((msg) => {
-        setNotice(`${msg}\nYour local history still remains`);
+        setNotice(`${msg}`);
       })
       .then(() => {
         setRefreshing(false);

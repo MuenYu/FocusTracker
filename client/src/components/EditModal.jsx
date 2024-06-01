@@ -5,21 +5,20 @@ import InputControl from "./InputControl";
 import PopupContext from "../context/PopupContext";
 import Btn from "./Btn";
 import AppDataContext from "../context/AppDataContext";
-import AuthContext from "../context/AuthContext";
-import { deleteRecordAPI, editRecordAPI } from "../api/record";
+import { useSendReq } from "../services/api";
 
 export default function EditModal({ editItem, setEditItem }) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const { token } = useContext(AuthContext);
   const { appData, updateAppData } = useContext(AppDataContext);
   const { setNotice } = useContext(PopupContext);
   const [task, setTask] = useState(editItem.task);
+  const sendReq = useSendReq();
 
   const onEdit = () => {
     editItem.task = task.trim();
-    editRecordAPI(token, editItem)
+    sendReq("/record", "put", true, editItem)
       .then(() => {
         setNotice("Update success");
       })
@@ -37,7 +36,7 @@ export default function EditModal({ editItem, setEditItem }) {
 
   const onDelete = async () => {
     const records = appData.records;
-    deleteRecordAPI(token, editItem)
+    sendReq("/record", "delete", true, editItem)
       .then(() => {
         setNotice("Delete success!");
       })

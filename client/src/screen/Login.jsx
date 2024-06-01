@@ -6,10 +6,9 @@ import Logo from "../components/Logo";
 import Title from "../components/Title";
 import Btn from "../components/Btn";
 import PopupContext from "../context/PopupContext";
-import { loginAPI, registerAPI } from "../api/user";
 import AuthContext from "../context/AuthContext";
 import AppDataContext from "../context/AppDataContext";
-import AppConfigContext from "../context/AppConfigContext";
+import { useSendReq } from "../services/api";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -18,13 +17,14 @@ export default function Login() {
   const { setNotice } = useContext(PopupContext);
   const theme = useTheme();
   const styles = createStyles(theme);
-
+  const sendReq = useSendReq();
   const { resetAppData } = useContext(AppDataContext);
-  const { resetAppConfig } = useContext(AppConfigContext);
 
   const onPress = (mode) => {
-    const action = mode ? loginAPI : registerAPI;
-    action({ username, password })
+    sendReq(mode ? "/user/login" : "/user/register", "post", false, {
+      username,
+      password,
+    })
       .then(async (token) => {
         await login(token);
         setNotice("Login success");
@@ -36,7 +36,6 @@ export default function Login() {
 
   useEffect(() => {
     resetAppData();
-    resetAppConfig();
   }, []);
 
   return (
