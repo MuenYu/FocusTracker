@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { Seconds2Time } from "../util/format";
 import AppConfigContext from "../context/AppConfigContext";
 

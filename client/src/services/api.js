@@ -14,7 +14,7 @@ export const useSendReq = () => {
         ...(data && { "Content-Type": "application/json" }),
         ...(auth && { Authorization: `Bearer ${token}` }),
       },
-      body: data ? JSON.stringify(data) : null,
+      ...(data && { body: JSON.stringify(data) }),
     });
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(() => reject("You cannot access the server now"), timeout);

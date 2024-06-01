@@ -1,6 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { statistic } from "../services/statistics";
+import {
+  totalFocusTime,
+  longestFocus,
+  shortestFocus,
+  avgFocusTime,
+} from "../services/statistics";
 import Prompt from "../components/Prompt";
 import StatCard from "../components/StatCard";
 import Header from "../components/Header";
@@ -8,44 +13,39 @@ import AppDataContext from "../context/AppDataContext";
 
 export default function Statistics() {
   const { appData } = useContext(AppDataContext);
-  const [stats, setStats] = useState(null);
-
-  useEffect(() => {
-    setStats(statistic(appData.records));
-  }, [appData]);
 
   return (
     <SafeAreaView style={styles.container}>
       <Header title="My Focus Statistics" />
-      {stats ? (
+      {appData.records.length > 0 ? (
         <ScrollView contentContainerStyle={styles.main}>
           <StatCard
             prefix="Your total focus time"
-            counter={Math.floor(stats.totalTime / 3600)}
+            counter={Math.floor(totalFocusTime(appData.records) / 3600)}
             unit="hour"
             units="hours"
           />
           <StatCard
             prefix="Your Focus Counter"
-            counter={stats.totalCount}
+            counter={appData.records.length}
             unit="time"
             units="times"
           />
           <StatCard
             prefix="Your Longest Focus Time"
-            counter={Math.floor(stats.longestFocus / 60)}
+            counter={Math.floor(longestFocus(appData.records) / 60)}
             unit="minute"
             units="minutes"
           />
           <StatCard
             prefix="Your Shortest Focus Time"
-            counter={Math.floor(stats.shortestFocus / 60)}
+            counter={Math.floor(shortestFocus(appData.records) / 60)}
             unit="minute"
             units="minutes"
           />
           <StatCard
             prefix="Your Average Focus Time"
-            counter={Math.floor(stats.avgPeriod / 60)}
+            counter={Math.floor(avgFocusTime(appData.records) / 60)}
             unit="minute"
             units="minutes"
           />
