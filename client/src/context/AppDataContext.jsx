@@ -16,11 +16,6 @@ const defaultAppData = {
 export const AppDataProvider = ({ children }) => {
   const [appData, setAppData] = useState(null);
 
-  // load records at the beginning
-  useEffect(() => {
-    loadAppData();
-  }, []);
-
   const loadAppData = async () => {
     const data = await LoadData(key);
     setAppData(data ?? { ...defaultAppData });
@@ -37,7 +32,7 @@ export const AppDataProvider = ({ children }) => {
   };
 
   return (
-    <AppDataContext.Provider value={{ appData, updateAppData, resetAppData }}>
+    <AppDataContext.Provider value={{ appData, updateAppData, resetAppData, loadAppData }}>
       {children}
     </AppDataContext.Provider>
   );
