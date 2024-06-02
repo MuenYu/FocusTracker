@@ -42,7 +42,7 @@ export default function EditModal({ editItem, setEditItem }) {
     const records = appData.records;
     sendReq("/record", "delete", true, editItem)
       .then(() => {
-        setNotice("Delete success!");
+        setNotice("Delete success");
       })
       .catch((msg) => {
         setNotice(`${msg}\nDelete success locally`);

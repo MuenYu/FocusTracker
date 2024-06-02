@@ -15,7 +15,7 @@ export default function OverallStats({ records }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatCard
-        prefix="Your total focus time"
+        prefix="Your Total Focus Time"
         counter={Math.floor(totalFocusTime(records) / 3600)}
         unit="hour"
         units="hours"

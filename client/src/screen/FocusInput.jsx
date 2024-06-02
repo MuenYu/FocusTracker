@@ -21,7 +21,7 @@ export default function FocusInput({ task, setTask, setShowTimer }) {
         onBlur={() => {
           setTask(task.trim());
           if (task.length > 0) {
-            setNotice("Start Focusing!");
+            setNotice("Start Focusing");
             setShowTimer(true);
           }
         }}
